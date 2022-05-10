@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody rb;
-    AudioSource audio;
     [SerializeField] float PushForce;
     [SerializeField] float TurnForce;
+    [SerializeField] AudioClip engineSound;
+
+    Rigidbody rb;
+    AudioSource audio;
+
+    bool isAlive;
 
     
     // Start is called before the first frame update
@@ -27,15 +31,11 @@ public class Movement : MonoBehaviour
     public void HandlePush(){
         if(Input.GetKey(KeyCode.Space)){
             if(!audio.isPlaying){
-                audio.Play();
+                audio.PlayOneShot(engineSound);
             }
             rb.AddRelativeForce(0,1 * PushForce * Time.deltaTime,0);
         } else{
             audio.Stop();
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
         }
     }
 
@@ -48,6 +48,7 @@ public class Movement : MonoBehaviour
             TurnRocket(TurnForce);
         }
     }
+  
 
     public void TurnRocket(float force)
     {
