@@ -7,17 +7,35 @@ public class CollisionTrigger : MonoBehaviour
     [SerializeField] AudioClip successSound;
     [SerializeField] AudioClip crashSound;
 
+    [SerializeField] ParticleSystem succesParticles;
+    [SerializeField] ParticleSystem crashParticles;
+
     AudioSource audio;
 
     bool isTransitioning = true; // bool has default false value
+    bool isCollisionDisabled = false;
 
     private void Start() {
         audio = GetComponent<AudioSource>();
     }
 
+    private void Update() {
+        Cheats();
+    }
+
+    void Cheats(){
+        if(Input.GetKeyDown(KeyCode.L)){
+            NextLevel();
+        }
+
+        if(Input.GetKeyDown(KeyCode.C)){
+            isCollisionDisabled =! isCollisionDisabled;
+        }
+    }
+
     void OnCollisionEnter(Collision other) {
 
-        if (isTransitioning)
+        if (isTransitioning && !isCollisionDisabled)
         {
             switch (other.gameObject.tag){
                 case "Fuel":
@@ -38,6 +56,7 @@ public class CollisionTrigger : MonoBehaviour
     }
 
     void StartCrashSequence(){
+        crashParticles.Play();
         setAudio(crashSound);
         disableControls();
         isTransitioning = false;
@@ -45,6 +64,7 @@ public class CollisionTrigger : MonoBehaviour
     }
 
     void StartEndSequence(){
+        succesParticles.Play();
         setAudio(successSound);
         disableControls();
         isTransitioning = false;

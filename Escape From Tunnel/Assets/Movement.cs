@@ -8,6 +8,12 @@ public class Movement : MonoBehaviour
     [SerializeField] float TurnForce;
     [SerializeField] AudioClip engineSound;
 
+    [SerializeField] ParticleSystem mainThrustParticles;
+    [SerializeField] ParticleSystem leftThrustParticles;
+    [SerializeField] ParticleSystem rightThrustParticles;
+
+
+
     Rigidbody rb;
     AudioSource audio;
 
@@ -29,26 +35,55 @@ public class Movement : MonoBehaviour
     }
 
     public void HandlePush(){
-        if(Input.GetKey(KeyCode.Space)){
-            if(!audio.isPlaying){
-                audio.PlayOneShot(engineSound);
-            }
-            rb.AddRelativeForce(0,1 * PushForce * Time.deltaTime,0);
-        } else{
-            audio.Stop();
+        if(Input.GetKey(KeyCode.Space))
+        {
+            StartThrusting();
+        }
+        else
+        {
+            StopThrusting();
         }
     }
 
     public void HandleTurn(){
+
         if (Input.GetKey(KeyCode.A))
         {
-            TurnRocket(-TurnForce);
+            RotateRight();
         }
-        else if(Input.GetKey(KeyCode.D)){
-            TurnRocket(TurnForce);
+        else if(Input.GetKey(KeyCode.D))
+        {
+            RotateLeft();
         }
     }
-  
+
+    void StopThrusting()
+    {
+        audio.Stop();
+        mainThrustParticles.Stop();
+    }
+
+    void StartThrusting()
+    {
+        mainThrustParticles.Play();
+        if (!audio.isPlaying)
+        {
+            audio.PlayOneShot(engineSound);
+        }
+        rb.AddRelativeForce(0, 1 * PushForce * Time.deltaTime, 0);
+    }
+
+    void RotateLeft()
+    {
+        TurnRocket(TurnForce);
+        leftThrustParticles.Play();
+    }
+
+    void RotateRight()
+    {
+        TurnRocket(-TurnForce);
+        rightThrustParticles.Play();
+    }
 
     public void TurnRocket(float force)
     {
