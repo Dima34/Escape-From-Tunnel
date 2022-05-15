@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
     [SerializeField] float PushForce;
     [SerializeField] float TurnForce;
+    [SerializeField] float TankCapacity;
+    [SerializeField] float FuelConsumtion;
     [SerializeField] AudioClip engineSound;
+    [SerializeField] Text fuelText;
 
     [SerializeField] ParticleSystem mainThrustParticles;
     [SerializeField] ParticleSystem leftThrustParticles;
@@ -16,6 +20,7 @@ public class Movement : MonoBehaviour
 
     Rigidbody rb;
     AudioSource audio;
+    float fuelAmount;
 
     bool isAlive;
 
@@ -25,17 +30,22 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audio = GetComponent<AudioSource>();
+        fuelAmount = TankCapacity;
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandlePush();
-        HandleTurn();
+        if(isTankFull()){
+            HandlePush();
+            HandleTurn();
+        }
+        
+        HandleFuelUI();
     }
 
     public void HandlePush(){
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetAxisRaw("Jump") == 1)
         {
             StartThrusting();
         }
@@ -47,13 +57,15 @@ public class Movement : MonoBehaviour
 
     public void HandleTurn(){
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetAxisRaw("Horizontal") == -1)
         {
             RotateRight();
+            cosumeFuel();
         }
-        else if(Input.GetKey(KeyCode.D))
+        else if(Input.GetAxisRaw("Horizontal") == 1)
         {
             RotateLeft();
+            cosumeFuel();
         }
     }
 
@@ -71,6 +83,7 @@ public class Movement : MonoBehaviour
             audio.PlayOneShot(engineSound);
         }
         rb.AddRelativeForce(0, 1 * PushForce * Time.deltaTime, 0);
+        cosumeFuel();
     }
 
     void RotateLeft()
@@ -90,5 +103,23 @@ public class Movement : MonoBehaviour
         rb.freezeRotation = true;
         transform.Rotate(0, 0 ,force * Time.deltaTime);
         rb.constraints &= ~RigidbodyConstraints.FreezeRotationZ;
+    }
+
+    public void HandleFuelUI(){
+        fuelText.text = ((int)fuelAmount).ToString();
+    }
+
+    public void cosumeFuel(){
+        if(isTankFull()){
+            fuelAmount -= FuelConsumtion * Time.deltaTime;
+        }
+    }
+
+    public bool isTankFull(){
+        if(fuelAmount <= 0){
+            return false;
+        }
+
+        return true;
     }
 }

@@ -44,8 +44,8 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 24.8
-  m_Range: 7.2
-  m_SpotAngle: 60
+  m_Range: 10.5
+  m_SpotAngle: 82.5
   m_InnerSpotAngle: 6
   m_CookieSize: 10
   m_Shadows:
@@ -745,7 +745,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PushForce: 500
   TurnForce: 100
+  TankCapacity: 300
+  FuelConsumtion: 1
   engineSound: {fileID: 8300000, guid: 5e5b94e9c9281184d8c1c16017a493ad, type: 3}
+  fuelText: {fileID: 0}
   mainThrustParticles: {fileID: 6981601228652877806}
   leftThrustParticles: {fileID: 9195460896866628172}
   rightThrustParticles: {fileID: 5410571955721790885}
@@ -1162,7 +1165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9164716913744968840}
   m_LocalRotation: {x: 0.70710677, y: 0.7071068, z: -0.000041924417, w: 0.000047951937}
-  m_LocalPosition: {x: -0.018081665, y: 0.81, z: 6.81}
+  m_LocalPosition: {x: -0.018081665, y: 0.52, z: 6.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8898379767623486660}
@@ -1180,9 +1183,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 14
-  m_Range: 7.5
-  m_SpotAngle: 60
+  m_Intensity: 12.76
+  m_Range: 7.38
+  m_SpotAngle: 39.4
   m_InnerSpotAngle: 6
   m_CookieSize: 10
   m_Shadows:

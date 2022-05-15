@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class CollisionTrigger : MonoBehaviour
 {
@@ -25,7 +25,7 @@ public class CollisionTrigger : MonoBehaviour
 
     void Cheats(){
         if(Input.GetKeyDown(KeyCode.L)){
-            NextLevel();
+            SceneController.NextLevel();
         }
 
         if(Input.GetKeyDown(KeyCode.C)){
@@ -53,6 +53,16 @@ public class CollisionTrigger : MonoBehaviour
 
     }
 
+    void disableControls(){
+        Movement movementHandler = GetComponent<Movement>();
+        movementHandler.enabled = false;
+    }
+
+    void setAudio(AudioClip audioClip){
+        audio.Stop();
+        audio.PlayOneShot(audioClip);
+    }
+
     void StartCrashSequence(){
         crashParticles.Play();
         setAudio(crashSound);
@@ -69,31 +79,12 @@ public class CollisionTrigger : MonoBehaviour
         Invoke("NextLevel", LevelLoadDelay);
     }
 
-    void disableControls(){
-        Movement movementHandler = GetComponent<Movement>();
-        movementHandler.enabled = false;
+    public void ReloadScene(){
+        SceneController.ReloadScene();
     }
 
-    void ReloadScene(){
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
+    public void NextLevel(){
+        SceneController.NextLevel();
     }
-
-    void setAudio(AudioClip audioClip){
-        audio.Stop();
-        audio.PlayOneShot(audioClip);
-    }
-
-    void NextLevel(){
-        int sceneAmount = SceneManager.GetAllScenes().Length;
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        if (currentSceneIndex == sceneAmount){
-            currentSceneIndex = 0;
-        }else{
-            currentSceneIndex ++;
-        }
-
-        SceneManager.LoadScene(currentSceneIndex);
-    }
+    
 }
