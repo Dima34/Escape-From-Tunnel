@@ -7,10 +7,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] float PushForce;
     [SerializeField] float TurnForce;
-    [SerializeField] float TankCapacity;
-    [SerializeField] float FuelConsumtion;
     [SerializeField] AudioClip engineSound;
-    [SerializeField] Text fuelText;
 
     [SerializeField] ParticleSystem mainThrustParticles;
     [SerializeField] ParticleSystem leftThrustParticles;
@@ -20,9 +17,8 @@ public class Movement : MonoBehaviour
 
     Rigidbody rb;
     AudioSource audio;
-    float fuelAmount;
 
-    bool isAlive;
+    PlayerState state;
 
     
     // Start is called before the first frame update
@@ -30,18 +26,16 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audio = GetComponent<AudioSource>();
-        fuelAmount = TankCapacity;
+        state = GetComponent<PlayerState>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isTankFull()){
+        if(state.isAlive){
             HandlePush();
             HandleTurn();
         }
-        
-        HandleFuelUI();
     }
 
     public void HandlePush(){
@@ -60,19 +54,16 @@ public class Movement : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") == -1)
         {
             RotateRight();
-            cosumeFuel();
         }
         else if(Input.GetAxisRaw("Horizontal") == 1)
         {
             RotateLeft();
-            cosumeFuel();
         }
     }
 
     void StopThrusting()
     {
         audio.Stop();
-        mainThrustParticles.Stop();
     }
 
     void StartThrusting()
@@ -83,7 +74,6 @@ public class Movement : MonoBehaviour
             audio.PlayOneShot(engineSound);
         }
         rb.AddRelativeForce(0, 1 * PushForce * Time.deltaTime, 0);
-        cosumeFuel();
     }
 
     void RotateLeft()
@@ -105,21 +95,4 @@ public class Movement : MonoBehaviour
         rb.constraints &= ~RigidbodyConstraints.FreezeRotationZ;
     }
 
-    public void HandleFuelUI(){
-        fuelText.text = ((int)fuelAmount).ToString();
-    }
-
-    public void cosumeFuel(){
-        if(isTankFull()){
-            fuelAmount -= FuelConsumtion * Time.deltaTime;
-        }
-    }
-
-    public bool isTankFull(){
-        if(fuelAmount <= 0){
-            return false;
-        }
-
-        return true;
-    }
 }

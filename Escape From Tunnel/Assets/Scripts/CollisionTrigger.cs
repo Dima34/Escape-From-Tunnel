@@ -11,12 +11,15 @@ public class CollisionTrigger : MonoBehaviour
     [SerializeField] ParticleSystem crashParticles;
 
     AudioSource audio;
+    PlayerState state;
+
 
     bool isTransitioning = true; // bool has default false value
     bool isCollisionDisabled = false;
 
     private void Start() {
         audio = GetComponent<AudioSource>();
+        state = GetComponent<PlayerState>();
     }
 
     private void Update() {
@@ -38,24 +41,16 @@ public class CollisionTrigger : MonoBehaviour
         if (isTransitioning && !isCollisionDisabled)
         {
             switch (other.gameObject.tag){
-                case "Fuel":
-                    break;
                 case "Finish":
                     StartEndSequence();
                     break;
                 case "Friendly":
                     break;
-                default:
+                case "Obstacle":
                     StartCrashSequence();
                     break;                
             }
-        }        
-
-    }
-
-    void disableControls(){
-        Movement movementHandler = GetComponent<Movement>();
-        movementHandler.enabled = false;
+        }       
     }
 
     void setAudio(AudioClip audioClip){
@@ -66,7 +61,7 @@ public class CollisionTrigger : MonoBehaviour
     void StartCrashSequence(){
         crashParticles.Play();
         setAudio(crashSound);
-        disableControls();
+        MakePlayerDead();
         isTransitioning = false;
         Invoke("ReloadScene", LevelLoadDelay);
     }
@@ -74,7 +69,7 @@ public class CollisionTrigger : MonoBehaviour
     void StartEndSequence(){
         succesParticles.Play();
         setAudio(successSound);
-        disableControls();
+        MakePlayerDead();
         isTransitioning = false;
         Invoke("NextLevel", LevelLoadDelay);
     }
@@ -86,5 +81,10 @@ public class CollisionTrigger : MonoBehaviour
     public void NextLevel(){
         SceneController.NextLevel();
     }
-    
+
+    public void MakePlayerDead(){
+        state.isAlive = false;
+    }
+
+        
 }

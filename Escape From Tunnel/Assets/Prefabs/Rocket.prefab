@@ -675,10 +675,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8898379767623486660}
   - component: {fileID: 6291233348380953204}
-  - component: {fileID: 6291233348380953203}
   - component: {fileID: 1571459015}
+  - component: {fileID: 6291233348380953203}
   - component: {fileID: 2218086602957879184}
   - component: {fileID: 4649880765799103109}
+  - component: {fileID: 1802378515}
+  - component: {fileID: 1284202535}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -731,27 +733,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 48
   m_CollisionDetection: 0
---- !u!114 &6291233348380953203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7278631674294878315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2663b5f851213469877964ffead380, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PushForce: 500
-  TurnForce: 100
-  TankCapacity: 300
-  FuelConsumtion: 1
-  engineSound: {fileID: 8300000, guid: 5e5b94e9c9281184d8c1c16017a493ad, type: 3}
-  fuelText: {fileID: 0}
-  mainThrustParticles: {fileID: 6981601228652877806}
-  leftThrustParticles: {fileID: 9195460896866628172}
-  rightThrustParticles: {fileID: 5410571955721790885}
 --- !u!82 &1571459015
 AudioSource:
   m_ObjectHideFlags: 0
@@ -920,6 +901,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6291233348380953203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7278631674294878315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2663b5f851213469877964ffead380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PushForce: 500
+  TurnForce: 100
+  engineSound: {fileID: 8300000, guid: 5e5b94e9c9281184d8c1c16017a493ad, type: 3}
+  mainThrustParticles: {fileID: 6981601228652877806}
+  leftThrustParticles: {fileID: 9195460896866628172}
+  rightThrustParticles: {fileID: 5410571955721790885}
 --- !u!114 &2218086602957879184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,6 +946,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f361b0afdaedfd145b12d05506b6e818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1802378515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7278631674294878315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ae4fdf80e08df4ebc73b9a74832ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TankCapacity: 20
+  FuelConsumtion: 1
+  fuelText: {fileID: 0}
+  SecondsToRestart: 4
+  OutOfFuelSound: {fileID: 8300000, guid: f46ab61bfcf284848ae7c365f9827ec6, type: 3}
+  CanisterCapacity: 50
+--- !u!114 &1284202535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7278631674294878315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64950f69fb879c4d893626ce98efbf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8137491655517516307
@@ -1499,14 +1528,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4b06ebeeaf0ac044aeed997d98443c2, type: 3}
---- !u!198 &9195460896866628172 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 584678573886053986, guid: d4b06ebeeaf0ac044aeed997d98443c2, type: 3}
-  m_PrefabInstance: {fileID: 8611415647592148014}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9021432226239084548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 771087676723270698, guid: d4b06ebeeaf0ac044aeed997d98443c2, type: 3}
+  m_PrefabInstance: {fileID: 8611415647592148014}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &9195460896866628172 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 584678573886053986, guid: d4b06ebeeaf0ac044aeed997d98443c2, type: 3}
   m_PrefabInstance: {fileID: 8611415647592148014}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9147905500212850675
