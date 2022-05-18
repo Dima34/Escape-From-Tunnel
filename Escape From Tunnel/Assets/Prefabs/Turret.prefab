@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretBase: {fileID: 4226331204295717948}
-  turretZone: {fileID: 1777309208917553660}
+  turretZoneScript: {fileID: 4471288928918188222}
+  turretName: 
 --- !u!1 &2764520128263042172
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,6 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5951033940635484715}
   - component: {fileID: 1777309208917553660}
+  - component: {fileID: 4471288928918188222}
   m_Layer: 0
   m_Name: TurretZone
   m_TagString: Untagged
@@ -89,8 +91,20 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4471288928918188222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2764520128263042172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe31298e6af15b24d84231f49af8ef57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4226331204295717948
 GameObject:
   m_ObjectHideFlags: 0
