@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,14 @@ public class TurretManager : MonoBehaviour
 
     
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         turretZoneScript.zoneCollisionEvent += onTurretZoneEnter;
+    }
+
+    private void OnDestroy()
+    {
+        turretZoneScript.zoneCollisionEvent -= onTurretZoneEnter;
     }
 
     // Update is called once per frame
