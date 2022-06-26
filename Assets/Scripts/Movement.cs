@@ -13,8 +13,6 @@ public class Movement : MonoBehaviour
     [SerializeField] ParticleSystem leftThrustParticles;
     [SerializeField] ParticleSystem rightThrustParticles;
 
-
-
     Rigidbody rb;
     AudioSource audio;
 
