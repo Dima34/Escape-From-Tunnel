@@ -8,18 +8,19 @@ public class TurretManager : MonoBehaviour
     [SerializeField] TurretZoneEvent turretZoneScript;
     [SerializeField] GameObject TurretZone;
     [SerializeField] GameObject TurretBase;
+    [SerializeField] GameObject TurretGun;
     [SerializeField] float zoneRadius = 1.5f;
     [SerializeField] float degreesPerSecond = 20f;
+    [SerializeField] float shootingSpeedS = 2f;
 
-    Ray ray;
-
+    bool isReloading = false;
+    bool isLoaded = true;
     
     // Start is called before the first frame update
     private void Awake()
     {
         turretZoneScript.zoneCollisionEvent += onTurretZoneEnter;
-        TurretZone.GetComponent<SphereCollider>().radius = zoneRadius;
-       
+        TurretZone.GetComponent<SphereCollider>().radius = zoneRadius;       
     }
 
     private void OnDestroy()
@@ -32,22 +33,65 @@ public class TurretManager : MonoBehaviour
     {
     }
 
+    public void Shoot()
+    {
+        isLoaded = false;
+        Debug.Log("Пах!");
+    }
+
+    public void Reload()
+    {
+        Debug.Log("Reloading...");
+        isReloading = true;
+        Invoke("SetGunLoaded", shootingSpeedS);
+    }
+
+    public void SetGunLoaded()
+    {
+        isLoaded = true;
+    }
+
     public void onTurretZoneEnter(object obj){
         Collider colliderInfo = (obj as Collider);
 
         if(colliderInfo == null) {return;}
-        // Draw an up vector of turret
-        Debug.DrawRay(TurretBase.transform.position, TurretBase.transform.forward * 5f, Color.red);
 
-        Vector3 contactorVec = colliderInfo.transform.position - TurretBase.transform.position;
-        contactorVec.Normalize();
+        Quaternion lookRotation = Quaternion.LookRotation(colliderInfo.transform.position - TurretBase.transform.position);
+        Quaternion rotation = Quaternion.RotateTowards(TurretBase.transform.rotation , lookRotation, degreesPerSecond * Time.deltaTime);
+        TurretBase.transform.rotation = rotation;
 
-        // Draw a toContactor ray
-        Debug.DrawRay(TurretBase.transform.position, contactorVec * 5f, Color.green);
+        Color gunRayColor = Color.red;
+        Ray ray = new Ray(TurretGun.transform.position, -TurretGun.transform.up);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit)){
+
+            // Cheking if rocket is in front of a gun
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                // Shoot & Reloading proces
+                if (isLoaded)
+                {
+                    isReloading = false;
+                    Shoot();
+                };
+                if (!isLoaded && !isReloading) Reload();
+
+
+
+
+                gunRayColor = Color.green;
+            }  
+            
+            if(isReloading) gunRayColor = Color.magenta;
+        }
+
 
         
 
-        TurretBase.transform.rotation = Quaternion.FromToRotation(Vector3.forward, contactorVec * Time.deltaTime / degreesPerSecond);
+
+        // Draw an up vector of turret
+        Debug.DrawRay(TurretGun.transform.position, -TurretGun.transform.up * zoneRadius, gunRayColor);
     }
 
     // Editor radius displaying

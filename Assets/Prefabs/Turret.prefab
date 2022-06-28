@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a0124d0fe2be2479e5ec837da0201f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretZoneScript: {fileID: 4471288928918188222}
   TurretZone: {fileID: 2764520128263042172}
   TurretBase: {fileID: 4226331204295717948}
+  TurretGun: {fileID: 4380192719740402219}
   zoneRadius: 1.5
-  turretZoneScript: {fileID: 4471288928918188222}
+  degreesPerSecond: 20
 --- !u!1 &2764520128263042172
 GameObject:
   m_ObjectHideFlags: 0
