@@ -290,6 +290,10 @@ PrefabInstance:
       value: Turret (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1621004136741393754, guid: 10ae35788ecc5744ba8b9b6bc824dcbc, type: 3}
+      propertyPath: bombForce
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1621004136741393754, guid: 10ae35788ecc5744ba8b9b6bc824dcbc, type: 3}
       propertyPath: turretName
       value: Sergey
       objectReference: {fileID: 0}
@@ -622,7 +626,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1791402862536182329, guid: a65e7189ea4df1149ac3c5a4c08c1cd9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.32373714
+      value: 0.23928356
       objectReference: {fileID: 0}
     - target: {fileID: 1791402862968486418, guid: a65e7189ea4df1149ac3c5a4c08c1cd9, type: 3}
       propertyPath: m_Follow
@@ -630,7 +634,7 @@ PrefabInstance:
       objectReference: {fileID: 1136116662}
     - target: {fileID: 1791402862968486445, guid: a65e7189ea4df1149ac3c5a4c08c1cd9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.32373714
+      value: 0.23928356
       objectReference: {fileID: 0}
     - target: {fileID: 6543022525365840425, guid: a65e7189ea4df1149ac3c5a4c08c1cd9, type: 3}
       propertyPath: m_RootOrder

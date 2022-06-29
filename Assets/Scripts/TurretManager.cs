@@ -9,9 +9,11 @@ public class TurretManager : MonoBehaviour
     [SerializeField] GameObject TurretZone;
     [SerializeField] GameObject TurretBase;
     [SerializeField] GameObject TurretGun;
+    [SerializeField] GameObject Bomb;
     [SerializeField] float zoneRadius = 1.5f;
     [SerializeField] float degreesPerSecond = 20f;
     [SerializeField] float shootingSpeedS = 2f;
+    [SerializeField] float bombForce = 20f;
 
     bool isReloading = false;
     bool isLoaded = true;
@@ -37,6 +39,16 @@ public class TurretManager : MonoBehaviour
     {
         isLoaded = false;
         Debug.Log("Пах!");
+
+        // get the front end gun coordinates
+        Vector3 BombSpawnPos = TurretGun.transform.position + (-TurretGun.transform.up);
+
+        GameObject bomb = Instantiate(Bomb, BombSpawnPos, TurretGun.transform.rotation);
+        Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
+
+        // add forward impulse to bomb to simulate a shoot;
+        bombRb.AddForce(-(TurretGun.transform.up) * bombForce);
+        
     }
 
     public void Reload()
