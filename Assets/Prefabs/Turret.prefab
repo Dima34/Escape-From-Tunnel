@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 4471288928918188222}
   m_Layer: 0
   m_Name: TurretZone
-  m_TagString: Obstacle
+  m_TagString: TriggerZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

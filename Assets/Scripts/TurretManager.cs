@@ -38,7 +38,6 @@ public class TurretManager : MonoBehaviour
     public void Shoot()
     {
         isLoaded = false;
-        Debug.Log("Пах!");
 
         // get the front end gun coordinates
         Vector3 BombSpawnPos = TurretGun.transform.position + (-TurretGun.transform.up);
@@ -53,7 +52,6 @@ public class TurretManager : MonoBehaviour
 
     public void Reload()
     {
-        Debug.Log("Reloading...");
         isReloading = true;
         Invoke("SetGunLoaded", shootingSpeedS);
     }
@@ -98,8 +96,6 @@ public class TurretManager : MonoBehaviour
             if(isReloading) gunRayColor = Color.magenta;
         }
 
-
-        
 
 
         // Draw an up vector of turret

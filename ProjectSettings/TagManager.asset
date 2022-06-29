@@ -7,6 +7,7 @@ TagManager:
   - Fuel
   - Friendly
   - Obstacle
+  - TriggerZone
   layers:
   - Default
   - TransparentFX
