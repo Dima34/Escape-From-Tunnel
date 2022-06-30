@@ -31,6 +31,11 @@ public class LaserWall : MonoBehaviour
                 if (hitTag != "TriggerZone")
                 {
                     float distToObstacle = hit.distance;
+
+                    LaserRay.transform.localScale.Set(distToObstacle, LaserRay.transform.localScale.y, LaserRay.transform.localScale.z);
+                    LaserRay.transform.Translate(LaserRay.transform.position + Vector3.right * distToObstacle);
+
+
                     print("Dist to obstacle - " + distToObstacle);
                 }
             }
