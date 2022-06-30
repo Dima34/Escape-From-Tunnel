@@ -53,6 +53,18 @@ public class CollisionTrigger : MonoBehaviour
         }       
     }
 
+    void OnTriggerEnter(Collider other) {
+
+        if (isTransitioning && !isCollisionDisabled)
+        {
+            switch (other.gameObject.tag){
+                case "Obstacle":
+                    StartCrashSequence();
+                    break;                
+            }
+        }       
+    }
+
     void setAudio(AudioClip audioClip){
         audio.Stop();
         audio.PlayOneShot(audioClip);

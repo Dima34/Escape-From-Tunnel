@@ -8,8 +8,15 @@ public class LaserWall : MonoBehaviour
     [SerializeField] float BetweenDelay = 6f;
     [SerializeField] float ActiveTime = 4f;
 
+
+    Vector3 defaultLaserSize;
+    Vector3 defaultLaserPos;
+
     private void Awake()
     {
+        defaultLaserSize = LaserRay.transform.localScale;
+        defaultLaserPos = LaserRay.transform.position;
+        
         TurnLaserOn();
     }
 
@@ -28,15 +35,18 @@ public class LaserWall : MonoBehaviour
             {
                 string hitTag = hit.collider.tag;
 
-                if (hitTag != "TriggerZone")
+                if (hitTag == "Obstacle")
                 {
+                    // Get distance to ray collided object
                     float distToObstacle = hit.distance;
 
-                    LaserRay.transform.localScale.Set(distToObstacle, LaserRay.transform.localScale.y, LaserRay.transform.localScale.z);
-                    LaserRay.transform.Translate(LaserRay.transform.position + Vector3.right * distToObstacle);
-
-
                     print("Dist to obstacle - " + distToObstacle);
+
+                    // Set laser length to ray length
+                    LaserRay.transform.localScale = new Vector3(distToObstacle, LaserRay.transform.localScale.y, LaserRay.transform.localScale.z);
+
+                    // Set position to center of ray
+                    LaserRay.transform.position = LaserRay.transform.position + LaserRay.transform.right * (distToObstacle / 2);
                 }
             }
         }
@@ -47,6 +57,11 @@ public class LaserWall : MonoBehaviour
     void TurnLaserOff()
     {
         Debug.Log("Laser is OFF");
+
+        // set default position and scale
+        LaserRay.transform.localScale = defaultLaserSize;
+        LaserRay.transform.position = defaultLaserPos;
+
         Invoke("TurnLaserOn", BetweenDelay);
     }
 

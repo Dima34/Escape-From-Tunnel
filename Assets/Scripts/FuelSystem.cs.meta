@@ -3,7 +3,9 @@ guid: 83ae4fdf80e08df4ebc73b9a74832ddd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - fuelText: {instanceID: 0}
+  - OutOfFuelSound: {fileID: 8300000, guid: f46ab61bfcf284848ae7c365f9827ec6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
