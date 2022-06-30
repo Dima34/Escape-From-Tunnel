@@ -722,7 +722,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1791402862536182329, guid: a65e7189ea4df1149ac3c5a4c08c1cd9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5277414
+      value: 0.9491081
       objectReference: {fileID: 0}
     - target: {fileID: 1791402862968486418, guid: a65e7189ea4df1149ac3c5a4c08c1cd9, type: 3}
       propertyPath: m_Follow
@@ -730,7 +730,7 @@ PrefabInstance:
       objectReference: {fileID: 1136116662}
     - target: {fileID: 1791402862968486445, guid: a65e7189ea4df1149ac3c5a4c08c1cd9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5277414
+      value: 0.9491081
       objectReference: {fileID: 0}
     - target: {fileID: 6543022525365840425, guid: a65e7189ea4df1149ac3c5a4c08c1cd9, type: 3}
       propertyPath: m_RootOrder
@@ -1198,6 +1198,14 @@ PrefabInstance:
     - target: {fileID: 8494911969890920489, guid: 65318d9219eeac3459bc57c81f3b44cc, type: 3}
       propertyPath: m_Name
       value: LaserWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926535603052624387, guid: 65318d9219eeac3459bc57c81f3b44cc, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926535603052624387, guid: 65318d9219eeac3459bc57c81f3b44cc, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65318d9219eeac3459bc57c81f3b44cc, type: 3}
