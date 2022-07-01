@@ -48,7 +48,10 @@ public class CollisionTrigger : MonoBehaviour
                     break;
                 case "Obstacle":
                     StartCrashSequence();
-                    break;                
+                    break;        
+                case "Bomb":
+                    StartCrashSequence();
+                    break;            
             }
         }       
     }

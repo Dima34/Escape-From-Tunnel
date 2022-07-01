@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-// TODO PlayerStateScript
 
 public class FuelSystem : MonoBehaviour
 {
     [SerializeField] float TankCapacity;
     [SerializeField] float FuelConsumtion;
-    
-    [SerializeField] Text fuelText;
+    [SerializeField] Text FuelText;
     [SerializeField] int SecondsToRestart = 3;
     [SerializeField] AudioClip OutOfFuelSound;
     [SerializeField] int CanisterCapacity = 50;
@@ -50,7 +45,7 @@ public class FuelSystem : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other) {
+    private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Fuel"){
             Destroy(other.gameObject);
             fuelAmount += CanisterCapacity;
@@ -58,7 +53,7 @@ public class FuelSystem : MonoBehaviour
     }
 
     public void HandleFuelUI(){
-        fuelText.text = ((int)fuelAmount).ToString();
+        FuelText.text = ((int)fuelAmount).ToString();
     }
 
     public void cosumeFuel(){
@@ -80,13 +75,11 @@ public class FuelSystem : MonoBehaviour
     }
 
 
-
     public void StartOutOfFuelSequence(){
         AudioSource.Stop();
         AudioSource.PlayOneShot(OutOfFuelSound);
         state.isAlive = false;
         Invoke("ReloadScene", SecondsToRestart);
     }
-
 
 }

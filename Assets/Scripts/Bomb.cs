@@ -6,15 +6,23 @@ public class Bomb : MonoBehaviour
 {
     [SerializeField] GameObject afterCollisionObject;
 
-    private void Awake() {
+    private void Awake()
+    {
         GetComponent<AudioSource>().Play();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        StartCrashSequnce();
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.tag == "Obstacle") StartCrashSequnce();
+    }
+
+    void StartCrashSequnce()
+    {
         Instantiate(afterCollisionObject, transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
-
-    
 }

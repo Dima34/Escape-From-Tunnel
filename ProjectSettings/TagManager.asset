@@ -8,6 +8,8 @@ TagManager:
   - Friendly
   - Obstacle
   - TriggerZone
+  - Bomb
+  - AmmoCreate
   layers:
   - Default
   - TransparentFX
