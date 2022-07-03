@@ -1,18 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Destroyable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField] float MaxHealth = 100f;
+    [SerializeField] GameObject ExplosionObject;
+
+    public event Action<float, float> OnHealthChange = delegate {};
+
+    private float healthAmount;
+
+    private void OnEnable() {
+        healthAmount = MaxHealth;
+    }
+    
+    private void OnCollisionEnter(Collision other) {
+        GameObject gameObject = other.gameObject;
+
+        if(gameObject.tag == "Bomb"){
+            healthAmount -= gameObject.GetComponent<Bomb>().Damage;
+            OnHealthChange(healthAmount,MaxHealth);
+            checkHealth();
+            print("My health is - " + healthAmount);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void checkHealth(){
+        if(healthAmount <= 0){
+            Destroy(this.gameObject);
+            Instantiate(ExplosionObject, transform.position, transform.rotation);
+        }
     }
+
+   
+
 }

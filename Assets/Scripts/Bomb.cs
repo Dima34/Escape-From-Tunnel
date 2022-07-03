@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] GameObject afterCollisionObject;
+    [SerializeField] public float Damage = 15f;
 
     private void Awake()
     {
