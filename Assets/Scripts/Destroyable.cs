@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Destroyable : MonoBehaviour
@@ -21,17 +22,36 @@ public class Destroyable : MonoBehaviour
             healthAmount -= gameObject.GetComponent<Bomb>().Damage;
             OnHealthChange(healthAmount,MaxHealth);
             checkHealth();
-            print("My health is - " + healthAmount);
         }
     }
 
     private void checkHealth(){
         if(healthAmount <= 0){
-            Destroy(this.gameObject);
-            Instantiate(ExplosionObject, transform.position, transform.rotation);
+            startDestroySequence();
         }
     }
 
-   
+    
+    void startDestroySequence(){
+        StartCoroutine(DestroyAnim());
+    }
+
+    // Animation of destroying
+    IEnumerator DestroyAnim(){
+        Instantiate(ExplosionObject, transform.position, transform.rotation);
+        yield return new WaitForSeconds(1);
+
+        Instantiate(ExplosionObject, transform.position, transform.rotation);
+        yield return new WaitForSeconds(1);
+
+        Instantiate(ExplosionObject, transform.position, transform.rotation);
+        yield return new WaitForSeconds(1);
+
+        DestroyTheObject();
+    }
+
+    void DestroyTheObject(){
+        Destroy(this.gameObject);
+    }
 
 }

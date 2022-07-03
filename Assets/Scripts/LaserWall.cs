@@ -25,8 +25,6 @@ public class LaserWall : MonoBehaviour
 
     void TurnLaserOn()
     {
-        Debug.Log("Laser is ON");
-
         Ray distanceRay = new Ray(LaserRay.transform.position, Vector3.right);
         Debug.DrawRay(LaserRay.transform.position, Vector3.right * 100f, Color.red, ActiveTime);
 
@@ -43,11 +41,13 @@ public class LaserWall : MonoBehaviour
                 {
                     createLaserLine(hit.distance);
                     turnLaserSoundOn();
+
+                    Invoke("TurnLaserOff", ActiveTime);
+
+                    break;
                 }
             }
         }
-
-        Invoke("TurnLaserOff", ActiveTime);
     }
 
     void TurnLaserOff()
