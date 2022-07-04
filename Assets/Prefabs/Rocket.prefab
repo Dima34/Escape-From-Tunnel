@@ -366,7 +366,7 @@ Transform:
   - {fileID: 143400103}
   - {fileID: 4518193993676607983}
   m_Father: {fileID: 8898379767623486660}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3569023701897517352
 GameObject:
@@ -753,8 +753,8 @@ Transform:
   - {fileID: 9021432226239084548}
   - {fileID: 9150595384462746427}
   - {fileID: 6580903496950688863}
-  - {fileID: 5312119723339280365}
   - {fileID: 8964456020425068985}
+  - {fileID: 5312119723339280365}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1029,7 +1029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TankCapacity: 20
   FuelConsumtion: 1
-  fuelText: {fileID: 0}
+  FuelText: {fileID: 0}
   SecondsToRestart: 4
   OutOfFuelSound: {fileID: 8300000, guid: f46ab61bfcf284848ae7c365f9827ec6, type: 3}
   CanisterCapacity: 50
@@ -1058,6 +1058,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletObj: {fileID: 5618936129155626054, guid: f4f52e391663bfd479baf6191b49587a, type: 3}
+  AmmoAmountText: {fileID: 0}
+  BulletSpawnOffset: 4
+  ShootForce: 10
+  ShootingSpeed: 2
+  AmmoAmount: 5
+  AmmoCreateCapacity: 10
 --- !u!1 &8137491655517516307
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,7 +1336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 771087676723270698, guid: d4b06ebeeaf0ac044aeed997d98443c2, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 771087676723270698, guid: d4b06ebeeaf0ac044aeed997d98443c2, type: 3}
       propertyPath: m_LocalPosition.x

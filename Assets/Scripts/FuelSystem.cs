@@ -51,7 +51,7 @@ public class FuelSystem : MonoBehaviour
             fuelAmount += CanisterCapacity;
         }
     }
-
+ 
     public void HandleFuelUI(){
         FuelText.text = ((int)fuelAmount).ToString();
     }

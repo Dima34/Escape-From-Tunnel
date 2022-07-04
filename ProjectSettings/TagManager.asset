@@ -10,6 +10,7 @@ TagManager:
   - TriggerZone
   - Bomb
   - AmmoCreate
+  - HealthCreate
   layers:
   - Default
   - TransparentFX

@@ -6,18 +6,12 @@ public class Destroyable : MonoBehaviour
 {
     [SerializeField] float MaxHealth = 100f;
     [SerializeField] GameObject ExplosionObject;
-    [SerializeField] GameObject CircleForTestObj;
 
     public event Action<float, float> OnHealthChange = delegate { };
     public event Action<float, float> OnHealthInit = delegate { };
     Vector3 LTPoint;
     Vector3 RTPoint;
 
-
-    // For test 
-    GameObject oldTop;
-    GameObject oldBottom;
-    GameObject oldBetween;
     private float healthAmount;
 
     private void OnEnable()
@@ -25,12 +19,6 @@ public class Destroyable : MonoBehaviour
         healthAmount = MaxHealth;
         OnHealthInit(healthAmount, MaxHealth);
         SetQbjCorners();
-    }
-
-    private void FixedUpdate() {
-        if(Input.GetKeyDown(KeyCode.F)){
-            GetRandomPoint();
-        }   
     }
 
     private void OnCollisionEnter(Collision other)
@@ -89,16 +77,6 @@ public class Destroyable : MonoBehaviour
         Vector3 RandomTop = getRandomVec3InRange(LTPoint, RTPoint);
         Vector3 Bottom = RandomTop - transform.up.normalized * transform.localScale.y;
         Vector3 RandomMiddlePoint = getRandomVec3InRange(RandomTop, Bottom);
-
-        if(oldBetween != null){
-            // Destroy(oldTop);
-            // Destroy(oldBottom);
-            Destroy(oldBetween);
-        }
-
-        // oldTop = Instantiate(CircleForTestObj, RandomTop, transform.rotation);
-        // oldBottom = Instantiate(CircleForTestObj, Bottom, transform.rotation);
-        oldBetween = Instantiate(CircleForTestObj, RandomMiddlePoint, transform.rotation);
 
         return RandomMiddlePoint;
     }
