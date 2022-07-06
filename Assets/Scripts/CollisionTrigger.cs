@@ -1,105 +1,63 @@
 using UnityEngine;
-
+using System;
 
 public class CollisionTrigger : MonoBehaviour
 {
-    [SerializeField] int LevelLoadDelay = 3;
-    [SerializeField] AudioClip successSound;
-    [SerializeField] AudioClip crashSound;
+    // Variable for Cheats in GameManager
+    [HideInInspector]
+    public bool isCollisionDisabled = false;
 
-    [SerializeField] ParticleSystem succesParticles;
-    [SerializeField] ParticleSystem crashParticles;
+    GameManager GameManagerObj;
 
-    AudioSource audio;
-    PlayerState state;
+    // Creating an event for each type of damage collisions
+    public delegate void ObstacleHitHandler();
+    public event ObstacleHitHandler OnObstacleHit;
 
+    public delegate void BombHitHandler();
+    public event BombHitHandler OnBombHit;
 
-    bool isTransitioning = true; // bool has default false value
-    bool isCollisionDisabled = false;
+    public delegate void LaserHitHandler();
+    public event LaserHitHandler OnLaserHit;
+
 
     private void Start() {
-        audio = GetComponent<AudioSource>();
-        state = GetComponent<PlayerState>();
+        GameManagerObj = FindObjectOfType<GameManager>();
     }
 
-    private void Update() {
-        Cheats();
-    }
+    void OnCollisionEnter(Collision other)
+    {
 
-    void Cheats(){
-        if(Input.GetKeyDown(KeyCode.L)){
-            SceneController.NextLevel();
-        }
-
-        if(Input.GetKeyDown(KeyCode.C)){
-            isCollisionDisabled =! isCollisionDisabled;
-        }
-    }
-
-    void OnCollisionEnter(Collision other) {
-
-        if (isTransitioning && !isCollisionDisabled)
+        if (!isCollisionDisabled)
         {
-            switch (other.gameObject.tag){
+            switch (other.gameObject.tag)
+            {
                 case "Finish":
-                    StartEndSequence();
-                    break;
-                case "Friendly":
+                    GameManagerObj.StartLevelSuccesSequence();
                     break;
                 case "Obstacle":
-                    StartCrashSequence();
-                    break;        
+                    OnObstacleHit();
+                    break;
                 case "Bomb":
-                    StartCrashSequence();
-                    break;            
+                    OnBombHit();
+                    break;
+                default:
+                    break;
             }
-        }       
+        }
     }
 
-    void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter(Collider other)
+    {
 
-        if (isTransitioning && !isCollisionDisabled)
+        if (!isCollisionDisabled)
         {
-            switch (other.gameObject.tag){
-                case "Obstacle":
-                    StartCrashSequence();
-                    break;                
+            switch (other.gameObject.tag)
+            {
+                case "LaserRay":
+                    OnLaserHit();
+                    break;
             }
-        }       
+        }
     }
 
-    void setAudio(AudioClip audioClip){
-        audio.Stop();
-        audio.PlayOneShot(audioClip);
-    }
-
-    void StartCrashSequence(){
-        crashParticles.Play();
-        setAudio(crashSound);
-        MakePlayerDead();
-        isTransitioning = false;
-        Invoke("ReloadScene", LevelLoadDelay);
-    }
-
-    void StartEndSequence(){
-        succesParticles.Play();
-        setAudio(successSound);
-        MakePlayerDead();
-        isTransitioning = false;
-        Invoke("NextLevel", LevelLoadDelay);
-    }
-
-    public void ReloadScene(){
-        SceneController.ReloadScene();
-    }
-
-    public void NextLevel(){
-        SceneController.NextLevel();
-    }
-
-    public void MakePlayerDead(){
-        state.isAlive = false;
-    }
-
-        
 }

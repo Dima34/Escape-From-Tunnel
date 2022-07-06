@@ -14,11 +14,11 @@ public class ShootingSystem : MonoBehaviour
     bool isLoaded = true;
 
 
-    PlayerState State;
+    GameManager GameManagerObj;
 
     private void Awake()
     {
-        State = GetComponent<PlayerState>();
+        GameManagerObj = FindObjectOfType<GameManager>();
         AmmoAmountText.text = AmmoAmount.ToString();
     }
 
@@ -27,7 +27,7 @@ public class ShootingSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (State.isAlive && isLoaded && AmmoAmount > 0)
+            if (GameManagerObj.IsPlayerAlive() && isLoaded && AmmoAmount > 0)
             {
                 Shoot();
             }

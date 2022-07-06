@@ -16,8 +16,7 @@ public class HeartsBar : MonoBehaviour
     void Start()
     {
         InitHearts();
-        HealthSystemScript.OnHealthChange += UpdateHearts;
-        
+        HealthSystemScript.OnHealthChange += UpdateHearts;        
     }
 
     void InitHearts(){
@@ -37,7 +36,7 @@ public class HeartsBar : MonoBehaviour
     }
 
     void UpdateHearts(int currentAmount, int maxAmount){
-        for (int i = currentAmount; i <= maxAmount; i++)
+        for (int i = currentAmount; i < maxAmount; i++)
         {
             HeartList[i].sprite = EmptyHeartSprite;
         }

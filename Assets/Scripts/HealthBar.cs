@@ -11,6 +11,7 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable() {
         Destroyable parent = GetComponentInParent<Destroyable>();
+        
         parent.OnHealthChange += handleChange;
         parent.OnHealthInit += setNumberIndiaction;
         HealthImage.fillAmount = 1;

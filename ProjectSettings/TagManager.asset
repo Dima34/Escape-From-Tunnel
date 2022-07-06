@@ -5,12 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fuel
-  - Friendly
   - Obstacle
   - TriggerZone
   - Bomb
   - AmmoCreate
   - HealthCreate
+  - LaserRay
   layers:
   - Default
   - TransparentFX

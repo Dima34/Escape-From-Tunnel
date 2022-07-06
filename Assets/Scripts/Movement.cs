@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
     Rigidbody rb;
     AudioSource audio;
 
-    PlayerState state;
+    GameManager GameManagerObj;
 
     
     // Start is called before the first frame update
@@ -24,13 +24,14 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audio = GetComponent<AudioSource>();
-        state = GetComponent<PlayerState>();
+        GameManagerObj = FindObjectOfType<GameManager>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(state.isAlive){
+        if(GameManagerObj.IsPlayerAlive()){
             HandlePush();
             HandleTurn();
         }

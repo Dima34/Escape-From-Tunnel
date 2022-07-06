@@ -10,5 +10,4 @@ public class TurretZoneEvent : MonoBehaviour
     private void OnTriggerStay(Collider other) {
         zoneCollisionEvent?.Invoke(other);
     }
-
 }

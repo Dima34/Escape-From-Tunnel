@@ -13,7 +13,8 @@ public class FuelSystem : MonoBehaviour
     float fuelAmount;
     Movement movementHandler;
     AudioSource AudioSource;
-    PlayerState state;
+    
+    GameManager GameManagerObj;
 
 
     // Start is called before the first frame update
@@ -22,7 +23,8 @@ public class FuelSystem : MonoBehaviour
         fuelAmount = TankCapacity;
         movementHandler = GetComponent<Movement>();
         AudioSource = GetComponent<AudioSource>();
-        state = GetComponent<PlayerState>();
+        GameManagerObj = FindObjectOfType<GameManager>();
+
     }
 
     // Update is called once per frame
@@ -30,7 +32,7 @@ public class FuelSystem : MonoBehaviour
     {
         HandleFuelUI();
 
-        if(state.isAlive){
+        if(GameManagerObj.IsPlayerAlive()){
             if(
                 Input.GetAxisRaw("Horizontal") == -1 ||
                 Input.GetAxisRaw("Horizontal") == 1 ||
@@ -70,16 +72,11 @@ public class FuelSystem : MonoBehaviour
         return true;
     }
 
-    public void ReloadScene(){
-        SceneController.ReloadScene();
-    }
-
 
     public void StartOutOfFuelSequence(){
         AudioSource.Stop();
         AudioSource.PlayOneShot(OutOfFuelSound);
-        state.isAlive = false;
-        Invoke("ReloadScene", SecondsToRestart);
+        GameManagerObj.StartReloadSequence();
     }
 
 }
