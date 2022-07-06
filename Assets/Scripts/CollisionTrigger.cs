@@ -1,23 +1,27 @@
 using UnityEngine;
 using System;
 
+[RequireComponent(typeof(AudioSource))]
 public class CollisionTrigger : MonoBehaviour
 {
-    // Variable for Cheats in GameManager
+    [SerializeField] AudioSource audioSource;
+
+    [Header("Impact sounds")]
+    [SerializeField] AudioClip LaserSound;
+    [SerializeField] AudioClip ObstacleSound;
+
+
+    
+    // Variable for Cheats in Cheat script
     [HideInInspector]
     public bool isCollisionDisabled = false;
 
     GameManager GameManagerObj;
 
-    // Creating an event for each type of damage collisions
-    public delegate void ObstacleHitHandler();
-    public event ObstacleHitHandler OnObstacleHit;
+    // Creating an event for damage
+    public delegate void HitHandler(GameObject HitSource);
+    public event HitHandler OnRocketBump;
 
-    public delegate void BombHitHandler();
-    public event BombHitHandler OnBombHit;
-
-    public delegate void LaserHitHandler();
-    public event LaserHitHandler OnLaserHit;
 
 
     private void Start() {
@@ -26,21 +30,25 @@ public class CollisionTrigger : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
+        GameObject CollidedObj = other.gameObject;
 
         if (!isCollisionDisabled)
         {
-            switch (other.gameObject.tag)
+            switch (CollidedObj.tag)
             {
                 case "Finish":
                     GameManagerObj.StartLevelSuccesSequence();
                     break;
                 case "Obstacle":
-                    OnObstacleHit();
+                    SoundManager.PlaySound(audioSource, ObstacleSound);
+                    OnRocketBump(CollidedObj);
                     break;
                 case "Bomb":
-                    OnBombHit();
+                    OnRocketBump(CollidedObj);
                     break;
+                
                 default:
+                    SoundManager.PlaySound(audioSource, ObstacleSound);
                     break;
             }
         }
@@ -48,16 +56,38 @@ public class CollisionTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        GameObject CollidedObj = other.gameObject;
 
         if (!isCollisionDisabled)
         {
-            switch (other.gameObject.tag)
+            switch (CollidedObj.tag)
             {
                 case "LaserRay":
-                    OnLaserHit();
+                    OnRocketBump(CollidedObj);
+                    break;
+                case "HealthCreate":
+                    OnRocketBump(CollidedObj);
                     break;
             }
         }
     }
 
+    void OnTriggerStay(Collider other) {
+        if (!isCollisionDisabled)
+        {
+            switch (other.gameObject.tag)
+            {
+                case "LaserRay":
+                    SoundManager.PlaySound(audioSource, LaserSound);
+                    break;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (!isCollisionDisabled)
+        {
+            SoundManager.StopSound(audioSource);
+        }
+    }
 }

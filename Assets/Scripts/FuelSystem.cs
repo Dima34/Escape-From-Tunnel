@@ -75,7 +75,7 @@ public class FuelSystem : MonoBehaviour
 
     public void StartOutOfFuelSequence(){
         AudioSource.Stop();
-        AudioSource.PlayOneShot(OutOfFuelSound);
+        SoundManager.PlaySoundOnce(AudioSource,OutOfFuelSound);
         GameManagerObj.StartReloadSequence();
     }
 

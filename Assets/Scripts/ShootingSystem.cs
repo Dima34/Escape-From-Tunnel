@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class ShootingSystem : MonoBehaviour
 {
     [SerializeField] GameObject BulletObj;
     [SerializeField] Text AmmoAmountText;
+    [SerializeField] AudioClip ShootSound;
+    [SerializeField] AudioSource audioSource;
+
     [SerializeField] float BulletSpawnOffset = 4f;
     [SerializeField] float ShootForce = 10f;
     [SerializeField] float ShootingSpeed = 2f;
@@ -16,8 +20,10 @@ public class ShootingSystem : MonoBehaviour
 
     GameManager GameManagerObj;
 
+
     private void Awake()
     {
+
         GameManagerObj = FindObjectOfType<GameManager>();
         AmmoAmountText.text = AmmoAmount.ToString();
     }
@@ -43,6 +49,9 @@ public class ShootingSystem : MonoBehaviour
 
         // Update ui
         AmmoAmountText.text = AmmoAmount.ToString();
+
+        // Play shoot sound
+        SoundManager.PlaySoundOnce(audioSource,ShootSound);
 
         isLoaded = false;
         Invoke("Reload", ShootingSpeed);

@@ -41,14 +41,14 @@ public class GameManager : MonoBehaviour
     {
         print("Manager reload");
         Invoke("ReloadScene", LevelLoadDelay);
-        MakePlayerDead();
+        DisableAlive();
     }
 
     public void StartEndSequence()
     {
         print("Manager end");
         Invoke("NextLevel", LevelReloadDelay);
-        MakePlayerDead();
+        DisableAlive();
     }
 
     public void ReloadScene()
@@ -61,8 +61,7 @@ public class GameManager : MonoBehaviour
         SceneController.NextLevel();
     }
 
-    public void MakePlayerDead()
-    {
+    public void DisableAlive(){
         isAlive = false;
     }
 

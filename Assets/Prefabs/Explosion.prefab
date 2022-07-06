@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionParticles: {fileID: 253939679156255469}
-  deleteDelay: 2
+  deleteDelay: 4
 --- !u!1001 &91768403252884525
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 
 [RequireComponent(typeof(CollisionTrigger))]
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] public int MaxHeartAmount = 3;
+    [SerializeField] GameObject ExplosionObject;
+    [SerializeField] int MaxHeartAmount = 3;
+    [SerializeField] int HealthCreateCapacity = 1;
 
     [Header("Damage in Hearts")]
     [SerializeField] int LaserDamage = 1;
@@ -14,8 +16,11 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] int ObstacleDamage = 1;
 
 
-    private int HeartAmount;
+    string DamageSourceTag;
+    int HeartAmount;
     CollisionTrigger collisionTrigger;
+    GameManager gameManager;
+    Coroutine LaserDamageCoroutine;
     public event Action<int, int> OnHealthChange = delegate {};
 
 
@@ -23,11 +28,10 @@ public class HealthSystem : MonoBehaviour
     void Start()
     {
         collisionTrigger = GetComponent<CollisionTrigger>();
+        gameManager = FindObjectOfType<GameManager>();
 
         // Subscribe to collision events for handling damage
-        collisionTrigger.OnBombHit += BombHit;
-        collisionTrigger.OnLaserHit += LaserHit;
-        collisionTrigger.OnObstacleHit += ObstacleHit;
+        collisionTrigger.OnRocketBump += RocketBump;
 
         HeartAmount = MaxHeartAmount;
     }
@@ -39,16 +43,36 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    void BombHit(){
-        ModifyHealth(-BombDamage);
+    void BombHit(GameObject HitSource){
     }
 
-    void LaserHit(){
+    void LaserHit(GameObject HitSource){
         ModifyHealth(-LaserDamage);
     }
 
-    void ObstacleHit(){
-        ModifyHealth(-ObstacleDamage);
+    void RocketBump(GameObject HitSource){
+        string BumpObjectTag = HitSource.tag;
+        DamageSourceTag = BumpObjectTag;
+
+        switch (BumpObjectTag)
+        {
+            case "Obstacle":
+                ModifyHealth(-ObstacleDamage);
+                break;
+            case "Bomb":
+                ModifyHealth(-BombDamage);
+                break;
+            case "LaserRay":
+                if(LaserDamageCoroutine == null){
+                    LaserDamageCoroutine = StartCoroutine(LaserDamageProcess());
+                }
+                break;
+            case "HealthCreate":
+                ModifyHealth(HealthCreateCapacity);
+                break;
+            default:
+                break;
+        }
     }
 
     void ModifyHealth(int AmountToAdd){
@@ -57,8 +81,25 @@ public class HealthSystem : MonoBehaviour
         if(HeartAmount < 0 ) HeartAmount = 0;
         if(HeartAmount > MaxHeartAmount) HeartAmount = MaxHeartAmount;
 
-        print("Heart amount - " + HeartAmount);
+        if(HeartAmount == 0){
+            PlayerDeathSequence();
+        }
 
         OnHealthChange(HeartAmount, MaxHeartAmount);
+    }
+
+    void PlayerDeathSequence(){
+        gameManager.DisableAlive();
+        Instantiate(ExplosionObject, transform.position, transform.rotation);
+    }
+
+    public int GetMaxHeartAmount(){
+        return MaxHeartAmount;
+    }
+
+    IEnumerator LaserDamageProcess(){
+        ModifyHealth(-LaserDamage);
+        yield return new WaitForSeconds(1);
+        LaserDamageCoroutine = null;
     }
 }

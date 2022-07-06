@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class TurretManager : MonoBehaviour
 {
     [SerializeField] TurretZoneEvent turretZoneScript;
@@ -10,17 +11,21 @@ public class TurretManager : MonoBehaviour
     [SerializeField] GameObject TurretBase;
     [SerializeField] GameObject TurretGun;
     [SerializeField] GameObject Bomb;
+    [SerializeField] AudioClip ShootSound;
     [SerializeField] float zoneRadius = 1.5f;
     [SerializeField] float degreesPerSecond = 20f;
     [SerializeField] float shootingSpeedS = 2f;
     [SerializeField] float bombForce = 20f;
 
+    
+    AudioSource audioSource;
     bool isReloading = false;
     bool isLoaded = true;
     
-    // Start is called before the first frame update
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
         turretZoneScript.zoneCollisionEvent += onTurretZoneEnter;
         TurretZone.GetComponent<SphereCollider>().radius = zoneRadius;       
     }
@@ -28,11 +33,6 @@ public class TurretManager : MonoBehaviour
     private void OnDestroy()
     {
         turretZoneScript.zoneCollisionEvent -= onTurretZoneEnter;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void Shoot()
@@ -45,9 +45,11 @@ public class TurretManager : MonoBehaviour
         GameObject bomb = Instantiate(Bomb, BombSpawnPos, TurretGun.transform.rotation);
         Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
 
+        // Play shoot sound
+        SoundManager.PlaySoundOnce(audioSource,ShootSound);
+
         // add forward impulse to bomb to simulate a shoot;
         bombRb.AddForce(-(TurretGun.transform.up) * bombForce);
-        
     }
 
     public void Reload()

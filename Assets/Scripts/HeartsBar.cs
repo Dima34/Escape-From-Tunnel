@@ -20,7 +20,7 @@ public class HeartsBar : MonoBehaviour
     }
 
     void InitHearts(){
-        int MaxHeartAmount = HealthSystemScript.MaxHeartAmount;
+        int MaxHeartAmount = HealthSystemScript.GetMaxHeartAmount();
 
         HeartList = new Image[MaxHeartAmount];
 

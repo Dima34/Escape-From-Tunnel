@@ -1,20 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] float PushForce;
-    [SerializeField] float TurnForce;
+    [Tooltip("Embed separate audioSource")]
+    [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip engineSound;
 
     [SerializeField] ParticleSystem mainThrustParticles;
     [SerializeField] ParticleSystem leftThrustParticles;
     [SerializeField] ParticleSystem rightThrustParticles;
+    [SerializeField] float PushForce;
+    [SerializeField] float TurnForce;
 
     Rigidbody rb;
-    AudioSource audio;
 
     GameManager GameManagerObj;
 
@@ -23,7 +21,6 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        audio = GetComponent<AudioSource>();
         GameManagerObj = FindObjectOfType<GameManager>();
 
     }
@@ -34,17 +31,17 @@ public class Movement : MonoBehaviour
         if(GameManagerObj.IsPlayerAlive()){
             HandlePush();
             HandleTurn();
+            HandleSound();
+        } else{
+            StopSound();
         }
+
     }
 
     public void HandlePush(){
         if(Input.GetAxisRaw("Jump") == 1)
         {
             StartThrusting();
-        }
-        else
-        {
-            StopThrusting();
         }
     }
 
@@ -60,18 +57,20 @@ public class Movement : MonoBehaviour
         }
     }
 
-    void StopThrusting()
-    {
-        audio.Stop();
+    public void HandleSound(){
+        if(
+            Input.GetAxisRaw("Jump") == 1 ||
+            Input.GetAxisRaw("Horizontal") != 0
+        ){
+            PlayThrustSound();
+        } else{
+            StopSound();
+        }
     }
 
     void StartThrusting()
     {
         mainThrustParticles.Play();
-        if (!audio.isPlaying)
-        {
-            audio.PlayOneShot(engineSound);
-        }
         rb.AddRelativeForce(0, 1 * PushForce * Time.deltaTime, 0);
     }
 
@@ -87,11 +86,19 @@ public class Movement : MonoBehaviour
         rightThrustParticles.Play();
     }
 
-    public void TurnRocket(float force)
+    void TurnRocket(float force)
     {
         rb.freezeRotation = true;
         transform.Rotate(0, 0 ,force * Time.deltaTime);
         rb.constraints &= ~RigidbodyConstraints.FreezeRotationZ;
+    }
+
+    void PlayThrustSound(){
+        SoundManager.PlaySound(audioSource, engineSound);
+    }
+
+    void StopSound(){
+        SoundManager.StopSound(audioSource);
     }
 
 }
