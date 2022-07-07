@@ -4,6 +4,7 @@ using System;
 [RequireComponent(typeof(AudioSource))]
 public class CollisionTrigger : MonoBehaviour
 {
+    [SerializeField] int AfterDeathExplosionsAmount = 3;
     [SerializeField] AudioSource audioSource;
 
     [Header("Impact sounds")]
@@ -34,7 +35,7 @@ public class CollisionTrigger : MonoBehaviour
     {
         GameObject CollidedObj = other.gameObject;
 
-        if (!isCollisionDisabled)
+        if (!isCollisionDisabled && AfterDeathExplosionsAmount > 0)
         {
             OnRocketBump(CollidedObj);
 
@@ -46,6 +47,10 @@ public class CollisionTrigger : MonoBehaviour
                     SoundManager.PlaySound(audioSource, ObstacleSound);
                     break;
             }
+        }
+
+        if(!gameManager.IsPlayerAlive()){
+            AfterDeathExplosionsAmount--;
         }
     }
 
