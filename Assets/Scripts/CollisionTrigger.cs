@@ -19,8 +19,10 @@ public class CollisionTrigger : MonoBehaviour
     GameManager gameManager;
 
     // Creating an event for damage
-    public delegate void HitHandler(GameObject HitSource);
+    public delegate void HitHandler(GameObject ContactorInfo);
     public event HitHandler OnRocketBump;
+    public event HitHandler OnRocketTriggerStay;
+
 
 
 
@@ -63,7 +65,7 @@ public class CollisionTrigger : MonoBehaviour
             switch (other.gameObject.tag)
             {
                 case "LaserRay":
-                    OnRocketBump(other.gameObject);
+                    OnRocketTriggerStay(other.gameObject);
                     SoundManager.PlaySound(audioSource, LaserSound);
                     break;
             }

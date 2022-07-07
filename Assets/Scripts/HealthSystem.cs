@@ -32,6 +32,7 @@ public class HealthSystem : MonoBehaviour
 
         // Subscribe to collision events for handling damage
         collisionTrigger.OnRocketBump += RocketBump;
+        collisionTrigger.OnRocketTriggerStay += RocketTriggerStay;
 
         HeartAmount = MaxHeartAmount;
     }
@@ -62,18 +63,26 @@ public class HealthSystem : MonoBehaviour
             case "Bomb":
                 ModifyHealth(-BombDamage);
                 break;
+            case "HealthCreate":
+                ModifyHealth(HealthCreateCapacity);
+                break;
+        }
+    }
+
+    void RocketTriggerStay(GameObject HitSource){
+        string BumpObjectTag = HitSource.tag;
+        DamageSourceTag = BumpObjectTag;
+
+        switch (BumpObjectTag)
+        {
             case "LaserRay":
                 if(LaserDamageCoroutine == null){
                     LaserDamageCoroutine = StartCoroutine(LaserDamageProcess());
                 }
                 break;
-            case "HealthCreate":
-                ModifyHealth(HealthCreateCapacity);
-                break;
-            default:
-                break;
-        }
+        }                
     }
+
 
     IEnumerator LaserDamageProcess(){
         ModifyHealth(-LaserDamage);
