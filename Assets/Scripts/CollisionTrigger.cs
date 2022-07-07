@@ -16,7 +16,7 @@ public class CollisionTrigger : MonoBehaviour
     [HideInInspector]
     public bool isCollisionDisabled = false;
 
-    GameManager GameManagerObj;
+    GameManager gameManager;
 
     // Creating an event for damage
     public delegate void HitHandler(GameObject HitSource);
@@ -25,7 +25,7 @@ public class CollisionTrigger : MonoBehaviour
 
 
     private void Start() {
-        GameManagerObj = FindObjectOfType<GameManager>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void OnCollisionEnter(Collision other)
@@ -34,24 +34,19 @@ public class CollisionTrigger : MonoBehaviour
 
         if (!isCollisionDisabled)
         {
-            switch (CollidedObj.tag)
-            {
-                case "Finish":
-                    GameManagerObj.StartLevelSuccesSequence();
-                    break;
-                case "Obstacle":
-                    SoundManager.PlaySound(audioSource, ObstacleSound);
-                    OnRocketBump(CollidedObj);
-                    break;
+            OnRocketBump(CollidedObj);
+
+            // Sound player. Bomb tag is excluded from playing default obstacle sound when bump
+            switch (CollidedObj.tag){
                 case "Bomb":
-                    OnRocketBump(CollidedObj);
                     break;
-                
                 default:
                     SoundManager.PlaySound(audioSource, ObstacleSound);
                     break;
             }
         }
+
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -60,15 +55,7 @@ public class CollisionTrigger : MonoBehaviour
 
         if (!isCollisionDisabled)
         {
-            switch (CollidedObj.tag)
-            {
-                case "LaserRay":
-                    OnRocketBump(CollidedObj);
-                    break;
-                case "HealthCreate":
-                    OnRocketBump(CollidedObj);
-                    break;
-            }
+           OnRocketBump(CollidedObj);
         }
     }
 
