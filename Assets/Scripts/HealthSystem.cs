@@ -63,6 +63,7 @@ public class HealthSystem : MonoBehaviour
                 ModifyHealth(-BombDamage);
                 break;
             case "LaserRay":
+                print(LaserDamageCoroutine);
                 if(LaserDamageCoroutine == null){
                     LaserDamageCoroutine = StartCoroutine(LaserDamageProcess());
                 }
@@ -73,6 +74,13 @@ public class HealthSystem : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    IEnumerator LaserDamageProcess(){
+        Debug.Log("Laser damage...");
+        ModifyHealth(-LaserDamage);
+        yield return new WaitForSeconds(1);
+        LaserDamageCoroutine = null;
     }
 
     void ModifyHealth(int AmountToAdd){
@@ -95,11 +103,5 @@ public class HealthSystem : MonoBehaviour
 
     public int GetMaxHeartAmount(){
         return MaxHeartAmount;
-    }
-
-    IEnumerator LaserDamageProcess(){
-        ModifyHealth(-LaserDamage);
-        yield return new WaitForSeconds(1);
-        LaserDamageCoroutine = null;
-    }
+    }   
 }

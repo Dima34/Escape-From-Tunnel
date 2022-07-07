@@ -78,6 +78,7 @@ public class CollisionTrigger : MonoBehaviour
             switch (other.gameObject.tag)
             {
                 case "LaserRay":
+                    OnRocketBump(other.gameObject);
                     SoundManager.PlaySound(audioSource, LaserSound);
                     break;
             }
