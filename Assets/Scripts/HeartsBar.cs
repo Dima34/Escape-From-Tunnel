@@ -36,9 +36,13 @@ public class HeartsBar : MonoBehaviour
     }
 
     void UpdateHearts(int currentAmount, int maxAmount){
-        for (int i = currentAmount; i < maxAmount; i++)
+        for (int i = 0; i < maxAmount; i++)
         {
-            HeartList[i].sprite = EmptyHeartSprite;
+            if(i >= currentAmount){
+                HeartList[i].sprite = EmptyHeartSprite;
+            } else{
+                HeartList[i].sprite = FilledHeartSprite;
+            }
         }
     }
 }

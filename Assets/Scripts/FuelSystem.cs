@@ -48,10 +48,7 @@ public class FuelSystem : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Fuel"){
-            Destroy(other.gameObject);
-            fuelAmount += CanisterCapacity;
-        }
+        if(other.gameObject.tag == "Fuel") fuelAmount += CanisterCapacity;
     }
  
     public void HandleFuelUI(){

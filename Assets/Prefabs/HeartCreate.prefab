@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1560956193301753687}
   - component: {fileID: 1700625080624228806}
   - component: {fileID: 6723823880269991823}
+  - component: {fileID: -5458696776473794616}
   m_Layer: 0
   m_Name: HeartCreate
   m_TagString: HealthCreate
@@ -95,3 +96,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 86.12286
   m_Center: {x: -170.89699, y: 158.57628, z: -1.2146711}
+--- !u!114 &-5458696776473794616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723823880269991816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675018cb95ae07746a894099fa2eef59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

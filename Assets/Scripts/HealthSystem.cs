@@ -55,6 +55,7 @@ public class HealthSystem : MonoBehaviour
         string BumpObjectTag = HitSource.tag;
         DamageSourceTag = BumpObjectTag;
 
+
         switch (BumpObjectTag)
         {
             case "Obstacle":
@@ -97,7 +98,6 @@ public class HealthSystem : MonoBehaviour
         if(HeartAmount > MaxHeartAmount) HeartAmount = MaxHeartAmount;
 
         if(HeartAmount == 0){
-            print("Player death");
             PlayerDeathSequence();
         }
 

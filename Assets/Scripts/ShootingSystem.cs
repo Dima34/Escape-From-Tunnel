@@ -65,7 +65,6 @@ public class ShootingSystem : MonoBehaviour
     
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "AmmoCreate"){
-            Destroy(other.gameObject);
             AmmoAmount += AmmoCreateCapacity;
             AmmoAmountText.text = AmmoAmount.ToString();
         } 

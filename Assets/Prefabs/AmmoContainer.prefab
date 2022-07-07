@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 6245260822900966187}
   - component: {fileID: 6245260822900966184}
   - component: {fileID: 7773477462680132156}
+  - component: {fileID: -6536589664081614051}
   m_Layer: 0
   m_Name: AmmoContainer
   m_TagString: AmmoCreate
@@ -168,6 +169,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37202e45fd3235f47a86c9c589e7dd80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DegreesPerSecond: 90
+--- !u!114 &-6536589664081614051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245260822900966185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675018cb95ae07746a894099fa2eef59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1043147284041724432
