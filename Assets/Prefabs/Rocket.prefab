@@ -726,7 +726,6 @@ GameObject:
   - component: {fileID: 2218086602957879184}
   - component: {fileID: 1802378515}
   - component: {fileID: 7718841453099219401}
-  - component: {fileID: 7556129889151941453}
   - component: {fileID: 254911631}
   - component: {fileID: 1324087964772392674}
   - component: {fileID: 6807752473877271783}
@@ -1042,20 +1041,6 @@ MonoBehaviour:
   ShootingSpeed: 2
   AmmoAmount: 5
   AmmoCreateCapacity: 10
---- !u!114 &7556129889151941453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7278631674294878315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de19cb7d17f334645a6024399f2ae2e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  succesParticles: {fileID: 0}
-  crashParticles: {fileID: 0}
 --- !u!114 &254911631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,6 +1055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ExplosionObject: {fileID: 91768402648555479, guid: fba1686239d5e454cbe73cc6e41b6777, type: 3}
   MaxHeartAmount: 3
+  HealthCreateCapacity: 3
   LaserDamage: 1
   BombDamage: 3
   ObstacleDamage: 1

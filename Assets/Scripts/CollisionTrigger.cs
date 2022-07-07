@@ -45,8 +45,6 @@ public class CollisionTrigger : MonoBehaviour
                     break;
             }
         }
-
-
     }
 
     void OnTriggerEnter(Collider other)

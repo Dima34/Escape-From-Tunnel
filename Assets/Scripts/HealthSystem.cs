@@ -63,7 +63,6 @@ public class HealthSystem : MonoBehaviour
                 ModifyHealth(-BombDamage);
                 break;
             case "LaserRay":
-                print(LaserDamageCoroutine);
                 if(LaserDamageCoroutine == null){
                     LaserDamageCoroutine = StartCoroutine(LaserDamageProcess());
                 }
@@ -77,7 +76,6 @@ public class HealthSystem : MonoBehaviour
     }
 
     IEnumerator LaserDamageProcess(){
-        Debug.Log("Laser damage...");
         ModifyHealth(-LaserDamage);
         yield return new WaitForSeconds(1);
         LaserDamageCoroutine = null;
@@ -90,6 +88,7 @@ public class HealthSystem : MonoBehaviour
         if(HeartAmount > MaxHeartAmount) HeartAmount = MaxHeartAmount;
 
         if(HeartAmount == 0){
+            print("Player death");
             PlayerDeathSequence();
         }
 
@@ -97,7 +96,7 @@ public class HealthSystem : MonoBehaviour
     }
 
     void PlayerDeathSequence(){
-        gameManager.DisableAlive();
+        gameManager.StartReloadSequence();
         Instantiate(ExplosionObject, transform.position, transform.rotation);
     }
 
