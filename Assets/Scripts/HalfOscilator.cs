@@ -37,17 +37,6 @@ public class HalfOscilator : MonoBehaviour
         transform.position = Rotate(CenterFromDefault, DefaultPosition, degrees);
     } 
 
-    // void OnDrawGizmos()
-    // {
-    //     calculateRotation();
-    //     Vector3 defaultCopy = new Vector3(DefaultPosition.x, DefaultPosition.y, DefaultPosition.z);
-    //     Vector3 result = Rotate(CenterFromDefault, defaultCopy, 90);
-
-    //     Gizmos.color = new Color(1, 1, 0, 1);
-    //     Gizmos.DrawLine(DefaultPosition, CenterFromDefault);
-    //     Gizmos.DrawSphere(CenterFromDefault, 0.1f);
-    //     Gizmos.DrawLine(CenterFromDefault, result);
-    // }
 
     void calculateRotation(){
         DefaultPosition = transform.position;
