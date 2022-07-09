@@ -11,6 +11,7 @@ public class MenuSmoothMooving : MonoBehaviour
     void Start()
     {
         trackedDolly = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();    
+        trackedDolly.m_PathPosition = 0;
     }
 
     // Update is called once per frame
