@@ -6,13 +6,25 @@ using UnityEngine.UI;
 
 public class LevelCard : MonoBehaviour
 {
-    [SerializeField] TMPro.TextMeshProUGUI NameText;
-    [SerializeField] string levelName;
-    [SerializeField] bool isLocked;
+    [SerializeField] 
+    TMPro.TextMeshProUGUI NameText;
+    [SerializeField]
+    Image LevelImage;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    [HideInInspector] 
+    public bool isLocked;
+    [HideInInspector] 
+    public string levelName;
+    [HideInInspector]
+    public Sprite levelImage; 
+
+    public void setData(){
         NameText.text = levelName;
+
+        Debug.Log("Image info in card" + levelImage.name);
+
+
+        LevelImage.sprite = levelImage;
     }
 }
