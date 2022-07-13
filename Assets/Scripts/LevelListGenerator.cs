@@ -25,7 +25,10 @@ public class LevelListGenerator : MonoBehaviour
             
 
             newCardScript.levelName = level.name;
-            newCardScript.levelImage = level.LevelImage;
+
+            if(level.LevelImage != null){
+                newCardScript.levelImage = level.LevelImage;
+            }
 
             newCardScript.setData();
         }

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class LevelCard : MonoBehaviour
 {
@@ -10,6 +8,8 @@ public class LevelCard : MonoBehaviour
     TMPro.TextMeshProUGUI NameText;
     [SerializeField]
     Image LevelImage;
+    [SerializeField]
+    string SceneToOpenName;
 
 
     [HideInInspector] 
@@ -22,9 +22,12 @@ public class LevelCard : MonoBehaviour
     public void setData(){
         NameText.text = levelName;
 
-        Debug.Log("Image info in card" + levelImage.name);
-
 
         LevelImage.sprite = levelImage;
     }
+
+    public void openScene(){
+        SceneManager.LoadScene(levelName);
+    }
+
 }
