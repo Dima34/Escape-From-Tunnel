@@ -9,13 +9,23 @@ public class MenuController : MonoBehaviour
     [SerializeField] GameObject OptionsMenu;
 
 
-
-    public void toggleStart(){
-        SceneController.NextLevel();
-    }
-
     public void ExitGame(){
         Application.Quit();
+    }
+
+    public void OpenMainMenu(){
+        CloseAllMenus();
+        MainMenu.active = true;
+    }
+
+    public void OpenLevelMenu(){
+        CloseAllMenus();
+        LevelMenu.active = true;
+    }
+    
+    public void OpenOptionsMenu(){
+        CloseAllMenus();
+        OptionsMenu.active = true;
     }
 
     public void CloseAllMenus(){
