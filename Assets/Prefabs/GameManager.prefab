@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3749342425677002903}
   - component: {fileID: 3749342425677002904}
-  - component: {fileID: 2371331883739012927}
   - component: {fileID: 1433863663400049302}
   m_Layer: 0
   m_Name: GameManager
@@ -49,18 +48,6 @@ MonoBehaviour:
   LevelReloadDelay: 3
   successSound: {fileID: 8300000, guid: 8126c39b7306e1b439276c2a0565a423, type: 3}
   crashSound: {fileID: 8300000, guid: d190add36a50884428e2a659f2766817, type: 3}
---- !u!114 &2371331883739012927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3749342425677002905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f361b0afdaedfd145b12d05506b6e818, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &1433863663400049302
 AudioSource:
   m_ObjectHideFlags: 0
@@ -70,7 +57,7 @@ AudioSource:
   m_GameObject: {fileID: 3749342425677002905}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 60844f840019ba1419ca1ebd03e8f1ac, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

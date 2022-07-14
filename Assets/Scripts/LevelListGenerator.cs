@@ -2,7 +2,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System;
 using UnityEditor;
-using UnityEngine.UI;
 using System.IO;
 
 public class LevelListGenerator : MonoBehaviour
@@ -34,17 +33,18 @@ public class LevelListGenerator : MonoBehaviour
         }
     }
 
+    #if UNITY_EDITOR
     public void FillLevelList(){
         EditorBuildSettingsScene[] sceneEditorScenes = EditorBuildSettings.scenes;
 
         LevelList = new Level[sceneEditorScenes.Length];
-
 
         for (int i = 0; i < LevelList.Length; i++)
         {
             LevelList[i] = new Level(Path.GetFileNameWithoutExtension(sceneEditorScenes[i].path));
         }    
     }
+    #endif
 
     public void deleteOneChild(Transform parentTransform){
         if(parentTransform.childCount != 0){

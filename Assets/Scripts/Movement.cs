@@ -22,7 +22,6 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         GameManagerObj = FindObjectOfType<GameManager>();
-
     }
 
     // Update is called once per frame
