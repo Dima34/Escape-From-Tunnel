@@ -21,8 +21,6 @@ public class LevelCard : MonoBehaviour
 
     public void setData(){
         NameText.text = levelName;
-
-
         LevelImage.sprite = levelImage;
     }
 

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Cheats : MonoBehaviour
 {
-    GameManager GameManagerObj;
  
     // Start is called before the first frame update
     void Start()
@@ -22,12 +21,17 @@ public class Cheats : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            GameManagerObj.NextLevel();
+            NextLevel();
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
             // CollisionTriggerScript.isCollisionDisabled = !CollisionTriggerScript.isCollisionDisabled;
         }
+    }
+
+    public void NextLevel()
+    {
+        SceneController.NextLevel();
     }
 }

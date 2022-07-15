@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioClip successSound;
     [SerializeField] AudioClip crashSound;
 
-    AudioSource audio;    
+    AudioSource audio;
     bool isAlive = true;
 
     public delegate void OnReloadHandler();
@@ -27,38 +27,14 @@ public class GameManager : MonoBehaviour
 
     public void StartCrashSequence(){
         OnCrashEvent?.Invoke();
-        PlayOnce(crashSound);
-        StartReloadSequence();
+        SoundManager.PlaySoundOnce(audio,crashSound);
+        DisableAlive();
     }
 
     public void StartLevelSuccesSequence(){
         OnLevelSuccessEvent?.Invoke();
-        PlayOnce(successSound);
-        StartEndSequence();
-    }
-
-    public void StartReloadSequence()
-    {
-        print("Manager reload");
-        Invoke("ReloadScene", LevelLoadDelay);
+        SoundManager.PlaySoundOnce(audio,successSound);
         DisableAlive();
-    }
-
-    public void StartEndSequence()
-    {
-        print("Manager end");
-        Invoke("NextLevel", LevelReloadDelay);
-        DisableAlive();
-    }
-
-    public void ReloadScene()
-    {
-        SceneController.ReloadScene();
-    }
-
-    public void NextLevel()
-    {
-        SceneController.NextLevel();
     }
 
     public void DisableAlive(){
@@ -67,10 +43,5 @@ public class GameManager : MonoBehaviour
 
     public bool IsPlayerAlive(){
         return isAlive;
-    }
-
-    void PlayOnce(AudioClip audioClip){
-        audio.Stop();
-        audio.PlayOneShot(audioClip);
     }
 }
