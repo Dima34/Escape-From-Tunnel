@@ -105,7 +105,7 @@ public class HealthSystem : MonoBehaviour
     }
 
     void PlayerDeathSequence(){
-        gameManager.StartReloadSequence();
+        gameManager.StartFailSequence();
         Instantiate(ExplosionObject, transform.position, transform.rotation);
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,19 +15,32 @@ public class GameManager : MonoBehaviour
 
     AudioSource audio;    
     bool isAlive = true;
-
-    public delegate void OnReloadHandler();
-    public event OnReloadHandler OnCrashEvent;
+    bool isPaused = false;
 
     public delegate void OnEndHandler();
     public event OnEndHandler OnLevelSuccessEvent;
+    public event OnEndHandler OnLevelFailEvent;
+
+
+    public event Action<bool> OnPauseToggle = delegate { };
 
     private void Start() {
         audio = GetComponent<AudioSource>();
     }
 
-    public void StartCrashSequence(){
-        OnCrashEvent?.Invoke();
+    private void Update() {
+        HandlePause();
+    }
+
+    public void HandlePause(){
+        if(Input.GetAxisRaw("Pause") == 1 && isAlive){
+            isPaused = !isPaused;
+            OnPauseToggle?.Invoke(isPaused);
+        }
+    }
+
+    public void StartFailSequence(){
+        OnLevelFailEvent?.Invoke();
         SoundManager.PlaySoundOnce(audio,crashSound);
     }
 

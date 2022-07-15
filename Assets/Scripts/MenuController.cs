@@ -15,22 +15,22 @@ public class MenuController : MonoBehaviour
 
     public void OpenMainMenu(){
         CloseAllMenus();
-        MainMenu.active = true;
+        MainMenu.SetActive(true);
     }
 
     public void OpenLevelMenu(){
         CloseAllMenus();
-        LevelMenu.active = true;
+        LevelMenu.SetActive(true);
     }
     
     public void OpenOptionsMenu(){
         CloseAllMenus();
-        OptionsMenu.active = true;
+        OptionsMenu.SetActive(true);
     }
 
     public void CloseAllMenus(){
-        MainMenu.active = false;
-        LevelMenu.active = false;
-        OptionsMenu.active = false;
+        MainMenu.SetActive(false);
+        LevelMenu.SetActive(false);
+        OptionsMenu.SetActive(false);
     }
 }

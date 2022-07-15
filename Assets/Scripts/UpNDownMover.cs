@@ -14,11 +14,6 @@ public class UpNDownMover : MonoBehaviour
     void Start()
     {
         startPos = transform.position;
-
-  
-        
-
-
     }
 
     // Update is called once per frame
@@ -28,7 +23,6 @@ public class UpNDownMover : MonoBehaviour
 
         float radians = Mathf.Deg2Rad * getDegreesFromNum(RemindedTime);
         float t = (Mathf.Cos(radians) + 1) / 2;
-        Debug.Log(t);
 
         transform.position = Vector3.Lerp(startPos, startPos + transform.up * EndPoint, t);
     }
