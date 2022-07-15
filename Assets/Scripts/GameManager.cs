@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioClip successSound;
     [SerializeField] AudioClip crashSound;
 
-    AudioSource audio;
+    AudioSource audio;    
     bool isAlive = true;
 
     public delegate void OnReloadHandler();
@@ -28,13 +28,11 @@ public class GameManager : MonoBehaviour
     public void StartCrashSequence(){
         OnCrashEvent?.Invoke();
         SoundManager.PlaySoundOnce(audio,crashSound);
-        DisableAlive();
     }
 
     public void StartLevelSuccesSequence(){
         OnLevelSuccessEvent?.Invoke();
         SoundManager.PlaySoundOnce(audio,successSound);
-        DisableAlive();
     }
 
     public void DisableAlive(){
