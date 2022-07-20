@@ -1,88 +1,105 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
 public class DataStorageHandler : MonoBehaviour
 {
- PlayerData _currentData;
+    [SerializeField] int defaultCoinsAmount = 0;
+    [SerializeField] float defaultVolume = 0f;
+    [SerializeField] int defaultResolution = 0;
+    [SerializeField] bool isDefaultFullscreen = true;
+    [SerializeField] int defaultQuality= 0;
+    
+    PlayerData _currentData;
 
- string _dataFileName = "Data";
- string _dataDirectoryPath;
- string _dataFilePath;
+    string _dataFileName = "Data";
+    string _dataDirectoryPath;
+    string _dataFilePath;
 
- void Start()
- {
-  _dataDirectoryPath = Application.dataPath + "/Data/";
-  _dataFilePath = _dataDirectoryPath + _dataFileName + ".json";
+    public delegate void OnDataLoadedHandle();
+    public event OnDataLoadedHandle OnDataLoadedEvent;
 
-  checkData();
- }
+    void Start()
+    {
+        _dataDirectoryPath = Application.dataPath + "/Data/";
+        _dataFilePath = _dataDirectoryPath + _dataFileName + ".json";
 
- string getJsonLine(PlayerData data)
- {
-  return JsonUtility.ToJson(data); ;
- }
+        checkData();    
+    }
 
- bool isDataExist()
- {
-  return File.Exists(_dataFilePath);
- }
+    string getJsonLine(PlayerData data)
+    {
+        return JsonUtility.ToJson(data); ;
+    }
 
- void checkData()
- {
+    bool isDataExist()
+    {
+        return File.Exists(_dataFilePath);
+    }
 
-  // if data doesn`t exist
-  if (!isDataExist())
-  {
-   Directory.CreateDirectory(_dataDirectoryPath);
-   File.Create(_dataFilePath).Close();
+    void checkData()
+    {
 
-   writeDefaultData();
-  }
-  // if data exists
-  else
-  {
-   startDataGettingSequence();
-  }
- }
+        // if data doesn`t exist
+        if (!isDataExist())
+        {
+            startDefaultCreationSequence();
+        }
+        // if data exists
+        else
+        {
+            startDataGettingSequence();
+        }
 
- void writeDefaultData()
- {
-  PlayerData playerData = new PlayerData();
 
-  SaveCurrentData(playerData);
+        OnDataLoadedEvent?.Invoke();
+    }
 
-  SetCurrentData(playerData);
- }
+    void startDefaultCreationSequence()
+    {
+        Debug.Log("Creation");
+        Directory.CreateDirectory(_dataDirectoryPath);
+        File.Create(_dataFilePath).Close();
 
- void startDataGettingSequence()
- {
-  string recievedJsonData = File.ReadAllLines(_dataFilePath)[0];
+        PlayerData playerData = new PlayerData(
+            defaultCoinsAmount,
+            defaultVolume,
+            defaultResolution,
+            isDefaultFullscreen,
+            defaultQuality
+        );
 
-  PlayerData recievedDataObj = JsonUtility.FromJson<PlayerData>(recievedJsonData);
+        SaveData(playerData);
 
-  SetCurrentData(recievedDataObj);
- }
+        SetCurrentData(playerData);
+    }
 
- public PlayerData GetCurrentData()
- {
-  return _currentData;
- }
+    void startDataGettingSequence()
+    {
+        string recievedJsonData = File.ReadAllLines(_dataFilePath)[0];
 
- public void SetCurrentData(PlayerData newCurrentData)
- {
-  _currentData = newCurrentData;
- }
+        PlayerData recievedDataObj = JsonUtility.FromJson<PlayerData>(recievedJsonData);
 
- public void SaveCurrentData(PlayerData newData)
- {
-  // Get Json string of player`s data
-  string jsonedData = getJsonLine(newData);
+        SetCurrentData(recievedDataObj);
+    }
 
-  StreamWriter dataFile = new StreamWriter(_dataFilePath);
-  dataFile.WriteLine(jsonedData);
+    public PlayerData GetCurrentData()
+    {
+        return _currentData;      
+    }
 
-  dataFile.Close();
- }
+    public void SetCurrentData(PlayerData newCurrentData)
+    {
+        _currentData = newCurrentData;
+    }
+
+    public void SaveData(PlayerData newData)
+    {
+        // Get Json string of player`s data
+        string jsonedData = getJsonLine(newData);
+
+        StreamWriter dataFile = new StreamWriter(_dataFilePath);
+        dataFile.WriteLine(jsonedData);
+
+        dataFile.Close();
+    }
 }

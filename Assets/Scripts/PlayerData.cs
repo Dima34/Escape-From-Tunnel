@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
 
 public class PlayerData
@@ -12,8 +9,18 @@ public class PlayerData
 
     }
 
-    public PlayerData(int coins){
-        Coins = coins; 
+    public PlayerData(
+        int coins,
+        float volume,
+        int resolution,
+        bool isFullscreen,
+        int quality
+    ){
+        Coins = coins;
+        Settings.Volume = volume;
+        Settings.Resolution = resolution;
+        Settings.IsFullscreen = isFullscreen;
+        Settings.Quality = quality;
     }
 }
 
@@ -22,7 +29,7 @@ public class SettingsList {
     public float Volume = 0;
     public int Resolution = 0;
     public bool IsFullscreen = true;
-    public int Quality = 0;
+    public int Quality = 3;
     public ControlsList ControlsList;
 
     public SettingsList(){
