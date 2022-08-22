@@ -7556,7 +7556,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1249204376}
   m_HandleRect: {fileID: 1249204375}
   m_Direction: 2
-  m_Value: 0.9999995
+  m_Value: 0.9999999
   m_Size: 0.76339746
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -16431,8 +16431,68 @@ PrefabInstance:
       value: DataStorage
       objectReference: {fileID: 0}
     - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: testLines
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
       propertyPath: defaultVolume
-      value: 0
+      value: -2.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: controls.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[0].Name
+      value: Throttle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[1].Name
+      value: Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[2].Name
+      value: Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[3].Name
+      value: Shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[4].Name
+      value: Pause
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: controls.Array.data[5].Name
+      value: Pause
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[0].KeyCode
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[1].KeyCode
+      value: 97
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[2].KeyCode
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[3].KeyCode
+      value: 119
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: Controls.Array.data[4].KeyCode
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031609124285544004, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}
+      propertyPath: controls.Array.data[5].KeyCode
+      value: 27
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e6c095c92d748441b4a2f13457af3d6, type: 3}

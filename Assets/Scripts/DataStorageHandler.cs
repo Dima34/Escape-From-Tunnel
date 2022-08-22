@@ -1,14 +1,43 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
+using System;
+
 
 public class DataStorageHandler : MonoBehaviour
 {
-    [SerializeField] int defaultCoinsAmount = 0;
-    [SerializeField] float defaultVolume = 0f;
-    [SerializeField] int defaultResolution = 0;
-    [SerializeField] bool isDefaultFullscreen = true;
-    [SerializeField] int defaultQuality= 0;
     
+    [SerializeField] float _volume = 0f;
+    [SerializeField] int _selectedResolution = 0;
+    [SerializeField] bool _isFullscreen = true;
+    [SerializeField] int _selectedQuality = 0;
+
+
+    [SerializeField] List<Control> _controls = new List<Control>(){
+        new Control("Throttle", KeyCode.Space),
+        new Control("Left", KeyCode.A),
+        new Control("Right", KeyCode.D),
+        new Control("Shoot", KeyCode.W),
+        new Control("Pause", KeyCode.Escape)
+    };
+
+    [SerializeField] Resolution[] _resolutionsList = new Resolution[]
+    {
+        new Resolution(1920, 1080),
+        new Resolution(1600, 900),
+        new Resolution(1440, 900),
+        new Resolution(1366, 768),
+        new Resolution(1280, 1024),
+        new Resolution(1280, 720),
+    };
+
+    [SerializeField] Quality[] _qualityList = new Quality[]{
+        new Quality("Low", 0),
+        new Quality("Medium", 1),
+        new Quality("High", 2),
+        new Quality("Ultra", 3),
+    };
+
     PlayerData _currentData;
 
     string _dataFileName = "Data";
@@ -50,7 +79,6 @@ public class DataStorageHandler : MonoBehaviour
             startDataGettingSequence();
         }
 
-
         OnDataLoadedEvent?.Invoke();
     }
 
@@ -61,11 +89,11 @@ public class DataStorageHandler : MonoBehaviour
         File.Create(_dataFilePath).Close();
 
         PlayerData playerData = new PlayerData(
-            defaultCoinsAmount,
-            defaultVolume,
-            defaultResolution,
-            isDefaultFullscreen,
-            defaultQuality
+            _coinsAmount,
+            _volume,
+            _selectedResolution,
+            _isFullscreen,
+            _selectedQuality
         );
 
         SaveData(playerData);
@@ -101,5 +129,61 @@ public class DataStorageHandler : MonoBehaviour
         dataFile.WriteLine(jsonedData);
 
         dataFile.Close();
+    }
+}
+
+
+[Serializable]
+public class Quality{
+    string _name;
+    int _settingIndex;
+
+    public Quality(string name, int settingIndex){
+        _name = name;
+        _settingIndex = settingIndex;
+    }
+
+    public string GetName(){
+        return _name;
+    }
+
+    public int GetSettingIndex(){
+        return _settingIndex;
+    }
+}
+
+
+[Serializable]
+public class Resolution{
+    int _width;
+    int _height;
+
+    public Resolution(int width, int height){
+        _width = width;
+        _height = height;
+    }
+
+    public int GetWidth(){
+        return _width;
+    }
+
+    public int GetHeight(){
+        return _height;
+    }
+
+    public override string ToString()
+    {
+        return (_width + "x" + _height);
+    }
+}
+
+[Serializable] 
+public class Control{
+    public string Name;
+    public KeyCode KeyCode;
+
+    public Control(string name, KeyCode keyCode){
+        Name = name;
+        KeyCode = keyCode;
     }
 }

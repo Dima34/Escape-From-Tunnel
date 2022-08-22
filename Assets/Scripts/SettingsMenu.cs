@@ -26,16 +26,19 @@ public class SettingsMenu : MonoBehaviour
     void fillMenu(){
         currentData = dataStorage.GetCurrentData();
         SettingsList settingList = currentData.Settings;
+        applySettings();
 
     // create options in dropdowns
 
         // create an quality options list
-        Resolution[] resolutionList = OptionsData.GetResolutionList();
+        // Resolution[] resolutionList = OptionsData.GetResolutionList();
+        Resolution[] resolutionList = new Resolution[1];
+        
         List<string> resolutionOptions = new List<string>();
 
         for (int i = 0; i < resolutionList.Length; i++)
         {
-            resolutionOptions.Add(resolutionList[i].GetName());
+            resolutionOptions.Add(resolutionList[i].ToString());
         }
 
         // Clear options dropdowh from default data
@@ -47,7 +50,8 @@ public class SettingsMenu : MonoBehaviour
 
 
     // create a resolution options list
-        Quality[] qualityList = OptionsData.GetQualities();
+        // Quality[] qualityList = OptionsData.GetQualities();
+        Quality[] qualityList = new Quality[1];
         List<string> qualityOptions = new List<string>();
 
         for (int i = 0; i < qualityList.Length; i++)
@@ -73,16 +77,15 @@ public class SettingsMenu : MonoBehaviour
 
     void handleChangeListeners()
     {
-        volumeSlider.onValueChanged.AddListener(delegate { handleVolumeChange(); });
-        resolutionDropDown.onValueChanged.AddListener(delegate { Debug.Log("resolutionDropDown"); saveChangedOptions(); });
-        fullScreenToggle.onValueChanged.AddListener(delegate { Debug.Log("fullScreenToggle"); saveChangedOptions(); });
-        qualityDropDown.onValueChanged.AddListener(delegate {Debug.Log("qualityDropDown");  saveChangedOptions(); });
+        volumeSlider.onValueChanged.AddListener(delegate { changeVolumeSequence(); });
+        resolutionDropDown.onValueChanged.AddListener(delegate { changeOptionsSequence(); });
+        fullScreenToggle.onValueChanged.AddListener(delegate { changeOptionsSequence(); });
+        qualityDropDown.onValueChanged.AddListener(delegate { changeOptionsSequence(); });
     }
 
     IEnumerator VolumeSaveProcess(){
         yield return new WaitForSeconds(0.5f);
-        Debug.Log("Volume process");
-        saveChangedOptions();
+        changeOptionsSequence();
     }
 
     void handleVolumeChange()
@@ -95,21 +98,44 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    void saveChangedOptions(){
-        Debug.Log("Save changes");
+    void changeVolumeSequence(){
+        changeOptions();
+        applySettings();
+        handleVolumeChange();
+    }
+
+    void changeOptionsSequence(){
+        changeOptions();
+        applySettings();
+        saveChangedOptions();
+    }
+
+    void changeOptions(){
         PlayerData newPlayerData = dataStorage.GetCurrentData();
         SettingsList newSettings = new SettingsList(
             volumeSlider.value,
             resolutionDropDown.value,
             fullScreenToggle.isOn,
-            qualityDropDown.value,
-            newPlayerData.Settings.ControlsList
+            qualityDropDown.value
+            // ,newPlayerData.Settings.ControlsList
         );
 
         newPlayerData.Settings = newSettings;
-
         currentData = newPlayerData;
+    }
+
+    void saveChangedOptions(){
         dataStorage.SaveData(currentData);
     }
     
+    void applySettings(){
+        SettingsList currentSettings = currentData.Settings;
+
+        Resolution currentRes = OptionsData.GetResolutionList()[currentSettings.Resolution];
+        bool isFullscreen = currentData.Settings.IsFullscreen;
+
+        audioMixer.SetFloat("mainVolume" ,currentSettings.Volume);
+        Screen.SetResolution(currentRes.GetWidth(), currentRes.GetHeight(), isFullscreen);
+        QualitySettings.SetQualityLevel(currentSettings.Quality);
+    }
 }
