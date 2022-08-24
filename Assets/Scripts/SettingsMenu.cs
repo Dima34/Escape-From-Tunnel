@@ -6,7 +6,6 @@ using System.Collections;
 
 public class SettingsMenu : MonoBehaviour
 {
-    [SerializeField] DataStorageHandler dataStorage;
     [SerializeField] AudioMixer audioMixer;
 
     [SerializeField] Slider volumeSlider;
@@ -17,125 +16,124 @@ public class SettingsMenu : MonoBehaviour
     Coroutine soundApplyCoroutine;
     PlayerData currentData;
 
-    void Awake() {
-        dataStorage.OnDataLoadedEvent += fillMenu;
-        handleChangeListeners();
-    }
+    // void Awake() {
+    //     handleChangeListeners();
+    // }
 
     // fill settings menu based on saved data
-    void fillMenu(){
-        currentData = dataStorage.GetCurrentData();
-        SettingsList settingList = currentData.Settings;
-        applySettings();
+    // void fillMenu(){
+    //     currentData = dataStorage.GetCurrentData();
+    //     SettingsList settingList = currentData.Settings;
+    //     applySettings();
 
-    // create options in dropdowns
+    // // create options in dropdowns
 
-        // create an quality options list
-        // Resolution[] resolutionList = OptionsData.GetResolutionList();
-        Resolution[] resolutionList = new Resolution[1];
+    //     // create an quality options list
+    //     // Resolution[] resolutionList = OptionsData.GetResolutionList();
+    //     Resolution[] resolutionList = new Resolution[1];
         
-        List<string> resolutionOptions = new List<string>();
+    //     List<string> resolutionOptions = new List<string>();
 
-        for (int i = 0; i < resolutionList.Length; i++)
-        {
-            resolutionOptions.Add(resolutionList[i].ToString());
-        }
+    //     for (int i = 0; i < resolutionList.Length; i++)
+    //     {
+    //         resolutionOptions.Add(resolutionList[i].ToString());
+    //     }
 
-        // Clear options dropdowh from default data
-        resolutionDropDown.options = new List<TMPro.TMP_Dropdown.OptionData>();
-        resolutionDropDown.AddOptions(resolutionOptions);
+    //     // Clear options dropdowh from default data
+    //     resolutionDropDown.options = new List<TMPro.TMP_Dropdown.OptionData>();
+    //     resolutionDropDown.AddOptions(resolutionOptions);
 
-        // Check the right resolution
-        resolutionDropDown.SetValueWithoutNotify(settingList.Resolution);
-
-
-    // create a resolution options list
-        // Quality[] qualityList = OptionsData.GetQualities();
-        Quality[] qualityList = new Quality[1];
-        List<string> qualityOptions = new List<string>();
-
-        for (int i = 0; i < qualityList.Length; i++)
-        {
-            qualityOptions.Add(qualityList[i].GetName());
-        }
-
-        // Clear options dropdowh from default data
-        qualityDropDown.options = new List<TMPro.TMP_Dropdown.OptionData>();
-        qualityDropDown.AddOptions(qualityOptions);
-
-        // Check the right resolution
-        qualityDropDown.SetValueWithoutNotify(settingList.Quality);
+    //     // Check the right resolution
+    //     resolutionDropDown.SetValueWithoutNotify(settingList.Resolution);
 
 
-    // fill a full screen toggle
-        fullScreenToggle.isOn = settingList.IsFullscreen;
+    // // create a resolution options list
+    //     // Quality[] qualityList = OptionsData.GetQualities();
+    //     Quality[] qualityList = new Quality[1];
+    //     List<string> qualityOptions = new List<string>();
+
+    //     for (int i = 0; i < qualityList.Length; i++)
+    //     {
+    //         qualityOptions.Add(qualityList[i].GetName());
+    //     }
+
+    //     // Clear options dropdowh from default data
+    //     qualityDropDown.options = new List<TMPro.TMP_Dropdown.OptionData>();
+    //     qualityDropDown.AddOptions(qualityOptions);
+
+    //     // Check the right resolution
+    //     qualityDropDown.SetValueWithoutNotify(settingList.Quality);
 
 
-    // set a sound volume slider
-        volumeSlider.SetValueWithoutNotify(settingList.Volume);
-    }
+    // // fill a full screen toggle
+    //     fullScreenToggle.isOn = settingList.IsFullscreen;
 
-    void handleChangeListeners()
-    {
-        volumeSlider.onValueChanged.AddListener(delegate { changeVolumeSequence(); });
-        resolutionDropDown.onValueChanged.AddListener(delegate { changeOptionsSequence(); });
-        fullScreenToggle.onValueChanged.AddListener(delegate { changeOptionsSequence(); });
-        qualityDropDown.onValueChanged.AddListener(delegate { changeOptionsSequence(); });
-    }
 
-    IEnumerator VolumeSaveProcess(){
-        yield return new WaitForSeconds(0.5f);
-        changeOptionsSequence();
-    }
+    // // set a sound volume slider
+    //     volumeSlider.SetValueWithoutNotify(settingList.Volume);
+    // }
 
-    void handleVolumeChange()
-    {
-        if(soundApplyCoroutine == null){
-            soundApplyCoroutine = StartCoroutine("VolumeSaveProcess");
-        } else{
-            StopCoroutine(soundApplyCoroutine);
-            soundApplyCoroutine = StartCoroutine("VolumeSaveProcess");
-        }
-    }
+    // void handleChangeListeners()
+    // {
+    //     volumeSlider.onValueChanged.AddListener(delegate { changeVolumeSequence(); });
+    //     resolutionDropDown.onValueChanged.AddListener(delegate { changeOptionsSequence(); });
+    //     fullScreenToggle.onValueChanged.AddListener(delegate { changeOptionsSequence(); });
+    //     qualityDropDown.onValueChanged.AddListener(delegate { changeOptionsSequence(); });
+    // }
 
-    void changeVolumeSequence(){
-        changeOptions();
-        applySettings();
-        handleVolumeChange();
-    }
+    // IEnumerator VolumeSaveProcess(){
+    //     yield return new WaitForSeconds(0.5f);
+    //     changeOptionsSequence();
+    // }
 
-    void changeOptionsSequence(){
-        changeOptions();
-        applySettings();
-        saveChangedOptions();
-    }
+    // void handleVolumeChange()
+    // {
+    //     if(soundApplyCoroutine == null){
+    //         soundApplyCoroutine = StartCoroutine("VolumeSaveProcess");
+    //     } else{
+    //         StopCoroutine(soundApplyCoroutine);
+    //         soundApplyCoroutine = StartCoroutine("VolumeSaveProcess");
+    //     }
+    // }
 
-    void changeOptions(){
-        PlayerData newPlayerData = dataStorage.GetCurrentData();
-        SettingsList newSettings = new SettingsList(
-            volumeSlider.value,
-            resolutionDropDown.value,
-            fullScreenToggle.isOn,
-            qualityDropDown.value
-            // ,newPlayerData.Settings.ControlsList
-        );
+    // void changeVolumeSequence(){
+    //     changeOptions();
+    //     applySettings();
+    //     handleVolumeChange();
+    // }
 
-        newPlayerData.Settings = newSettings;
-        currentData = newPlayerData;
-    }
+    // void changeOptionsSequence(){
+    //     changeOptions();
+    //     applySettings();
+    //     saveChangedOptions();
+    // }
 
-    void saveChangedOptions(){
-        dataStorage.SaveData(currentData);
-    }
+    // void changeOptions(){
+    //     PlayerData newPlayerData = dataStorage.GetCurrentData();
+    //     SettingsList newSettings = new SettingsList(
+    //         volumeSlider.value,
+    //         resolutionDropDown.value,
+    //         fullScreenToggle.isOn,
+    //         qualityDropDown.value
+    //         // ,newPlayerData.Settings.ControlsList
+    //     );
+
+    //     newPlayerData.Settings = newSettings;
+    //     currentData = newPlayerData;
+    // }
+
+    // void saveChangedOptions(){
+    //     dataStorage.SaveData(currentData);
+    // }
     
-    void applySettings(){
-        SettingsList currentSettings = currentData.Settings;
+    // void applySettings(){
+    //     SettingsList currentSettings = currentData.Settings;
 
-        Resolution currentRes = OptionsData.GetResolutionList()[currentSettings.Resolution];
-        bool isFullscreen = currentData.Settings.IsFullscreen;
+    //     Resolution currentRes = OptionsData.GetResolutionList()[currentSettings.Resolution];
+    //     bool isFullscreen = currentData.Settings.IsFullscreen;
 
-        audioMixer.SetFloat("mainVolume" ,currentSettings.Volume);
-        Screen.SetResolution(currentRes.GetWidth(), currentRes.GetHeight(), isFullscreen);
-        QualitySettings.SetQualityLevel(currentSettings.Quality);
-    }
+    //     audioMixer.SetFloat("mainVolume" ,currentSettings.Volume);
+    //     Screen.SetResolution(currentRes.GetWidth(), currentRes.GetHeight(), isFullscreen);
+    //     QualitySettings.SetQualityLevel(currentSettings.Quality);
+    // }
 }

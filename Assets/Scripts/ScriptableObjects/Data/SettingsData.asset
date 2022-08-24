@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41583078fd611f149a674a6303332caf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controls:
+  - Name: Throttle
+    KeyCode: 32
+  - Name: Left
+    KeyCode: 97
+  - Name: Right
+    KeyCode: 100
+  - Name: Shoot
+    KeyCode: 119
+  - Name: Pause
+    KeyCode: 27
+  - Name: Pause
+    KeyCode: 27
+  ResolutionsList:
+  - Width: 1920
+    Height: 1080
+  - Width: 1600
+    Height: 900
+  - Width: 1440
+    Height: 900
+  - Width: 1366
+    Height: 768
+  - Width: 1280
+    Height: 1024
+  - Width: 1280
+    Height: 720
+  QualityList:
+  - Name: Low
+    SettingIndex: 0
+  - Name: Medium
+    SettingIndex: 1
+  - Name: High
+    SettingIndex: 2
+  - Name: Ultra
+    SettingIndex: 3

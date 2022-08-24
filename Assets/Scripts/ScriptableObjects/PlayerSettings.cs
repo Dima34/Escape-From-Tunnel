@@ -1,18 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSettings : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+[CreateAssetMenu(fileName = "NewPlayerSettings", menuName = "New Player Settings", order = 53)]
+public class PlayerSettings : ScriptableObject {
+    public float _volume = 0f;
+    public int _selectedResolution = 0;
+    public bool _isFullscreen = true;
+    public int _selectedQuality = 0;
 }
