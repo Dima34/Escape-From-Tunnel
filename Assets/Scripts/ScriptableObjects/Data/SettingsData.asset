@@ -23,8 +23,6 @@ MonoBehaviour:
     KeyCode: 119
   - Name: Pause
     KeyCode: 27
-  - Name: Pause
-    KeyCode: 27
   ResolutionsList:
   - Width: 1920
     Height: 1080

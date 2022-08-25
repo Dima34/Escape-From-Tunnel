@@ -2,8 +2,9 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPlayerSettings", menuName = "New Player Settings", order = 53)]
 public class PlayerSettings : ScriptableObject {
-    public float _volume = 0f;
-    public int _selectedResolution = 0;
-    public bool _isFullscreen = true;
-    public int _selectedQuality = 0;
+    [SerializeField] SettingsData settingsDataObject;
+    [SerializeField] public float Volume = 0f;
+    [SerializeField] public int SelectedResolutionIndex;
+    [SerializeField] public bool IsFullscreen = true;
+    [SerializeField] public int SelectedQualityIndex;
 }

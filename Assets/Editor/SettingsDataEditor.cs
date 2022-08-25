@@ -6,9 +6,11 @@ using UnityEditorInternal;
 public class SettingsDataEditor : Editor
 {
     SettingsData settingsData;
-    SerializedProperty ControlListField;
-    SerializedProperty ResolutionListField;
-    SerializedProperty QualityListField;
+    SerializedProperty controlListField;
+    SerializedProperty resolutionListField;
+    SerializedProperty qualityListField;
+    SerializedProperty minVolume;
+    SerializedProperty maxVolume;
     ReorderableList controlList;
     ReorderableList resolutionList;
     ReorderableList qualityList;
@@ -16,18 +18,21 @@ public class SettingsDataEditor : Editor
 
     private void OnEnable()
     {
-        ControlListField = serializedObject.FindProperty("Controls");
-        ResolutionListField = serializedObject.FindProperty("ResolutionsList");
-        QualityListField = serializedObject.FindProperty("QualityList");
+        controlListField = serializedObject.FindProperty("Controls");
+        resolutionListField = serializedObject.FindProperty("ResolutionsList");
+        qualityListField = serializedObject.FindProperty("QualityList");
+        minVolume = serializedObject.FindProperty("minVolume");
+        maxVolume = serializedObject.FindProperty("maxVolume");
+
 
         // Creating Reorderable list
-        controlList = new ReorderableList(serializedObject, ControlListField, true,false,true,true);
+        controlList = new ReorderableList(serializedObject, controlListField, true, false, true, true);
         controlList.drawElementCallback = drawControlList;
 
-        resolutionList = new ReorderableList(serializedObject, ResolutionListField, true,false,true,true);
+        resolutionList = new ReorderableList(serializedObject, resolutionListField, true, false, true, true);
         resolutionList.drawElementCallback = drawResolutionList;
 
-        qualityList = new ReorderableList(serializedObject, QualityListField, true,false,true,true);
+        qualityList = new ReorderableList(serializedObject, qualityListField, true, false, true, true);
         qualityList.drawElementCallback = drawQualityList;
     }
 
@@ -36,12 +41,14 @@ public class SettingsDataEditor : Editor
         serializedObject.Update();
 
         // Styles
-        GUIStyle headingStyle = new GUIStyle(GUI.skin.label){
+        GUIStyle headingStyle = new GUIStyle(GUI.skin.label)
+        {
             fontSize = 20,
             fontStyle = FontStyle.Bold,
             alignment = TextAnchor.UpperCenter
         };
-        GUIStyle listTitleStyle = new GUIStyle(GUI.skin.label){
+        GUIStyle listTitleStyle = new GUIStyle(GUI.skin.label)
+        {
             fontSize = 15,
             alignment = TextAnchor.UpperCenter
         };
@@ -86,10 +93,26 @@ public class SettingsDataEditor : Editor
         qualityList.DoLayoutList();
 
 
+        // Volume
+        GUILayout.Space(15);
+        GUILayout.Label("Volume settings", headingStyle);
+        GUILayout.Space(5);
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Min Volume", listTitleStyle);
+        GUILayout.Label("Max Volume", listTitleStyle);
+        GUILayout.EndHorizontal();
+        
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.PropertyField(minVolume, GUIContent.none);
+        EditorGUILayout.PropertyField(maxVolume, GUIContent.none);
+        GUILayout.EndHorizontal();
+
         serializedObject.ApplyModifiedProperties();
     }
 
-    void drawControlList(Rect rect, int index, bool isActive, bool isFocused){
+    void drawControlList(Rect rect, int index, bool isActive, bool isFocused)
+    {
         SerializedProperty element = controlList.serializedProperty.GetArrayElementAtIndex(index);
 
         Rect leftRect = new Rect(rect.x, rect.y + 3, rect.width / 2, EditorGUIUtility.singleLineHeight);
@@ -108,7 +131,8 @@ public class SettingsDataEditor : Editor
         );
     }
 
-    void drawResolutionList(Rect rect, int index, bool isActive, bool isFocused){
+    void drawResolutionList(Rect rect, int index, bool isActive, bool isFocused)
+    {
         SerializedProperty element = resolutionList.serializedProperty.GetArrayElementAtIndex(index);
 
         Rect leftRect = new Rect(rect.x, rect.y + 3, rect.width / 2, EditorGUIUtility.singleLineHeight);
@@ -127,7 +151,8 @@ public class SettingsDataEditor : Editor
         );
     }
 
-    void drawQualityList(Rect rect, int index, bool isActive, bool isFocused){
+    void drawQualityList(Rect rect, int index, bool isActive, bool isFocused)
+    {
         SerializedProperty element = qualityList.serializedProperty.GetArrayElementAtIndex(index);
 
         Rect leftRect = new Rect(rect.x, rect.y + 3, rect.width / 2, EditorGUIUtility.singleLineHeight);

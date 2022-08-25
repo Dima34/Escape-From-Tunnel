@@ -5,6 +5,9 @@ using System;
 [Serializable]
 [CreateAssetMenu(fileName = "NewSettingsData", menuName = "New Settings Data", order = 52)]
 public class SettingsData : ScriptableObject {
+    [SerializeField] public float minVolume = -80f;
+    [SerializeField] public float maxVolume = 20f;
+    
     [SerializeField] public List<Control> Controls = new List<Control>(){
         new Control("Throttle", KeyCode.Space),
         new Control("Left", KeyCode.A),
