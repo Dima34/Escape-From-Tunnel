@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a191f013885714a91bb2660c5354e8, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
-  _settingsDataObject: {fileID: 11400000, guid: aec31c7f1b26dbe4594038180e9b4401, type: 2}
-  _volume: 0
-  _selectedResolution: 0
-  _isFullscreen: 1
-  _selectedQuality: 0
+  settingsDataObject: {fileID: 11400000, guid: aec31c7f1b26dbe4594038180e9b4401, type: 2}
+  Volume: 6.4
+  SelectedResolutionIndex: 5
+  IsFullscreen: 0
+  SelectedQualityIndex: 2
