@@ -76,9 +76,7 @@ public class PlayerSettingsEditor : Editor
             GUILayout.Label("Default Quality level");
             selectedQualityIndex.intValue = EditorGUILayout.Popup(selectedQualityIndex.intValue, qaListOptionList);
             GUILayout.EndHorizontal();
-
         }
-
 
         serializedObject.ApplyModifiedProperties();
     }
