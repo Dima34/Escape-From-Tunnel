@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41583078fd611f149a674a6303332caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minVolume: -80
+  maxVolume: 20
   Controls:
   - Name: Throttle
     KeyCode: 32
